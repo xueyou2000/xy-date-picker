@@ -49,6 +49,46 @@ export function setMonth(d: Date, month: number) {
 }
 
 /**
+ * 累加月份, 返回新日期
+ * @param d
+ */
+export function incrementMonth(d: Date) {
+    const date = new Date(d);
+    const month = date.getMonth();
+    let prevDate: Date;
+    switch (month) {
+        case 11:
+            // 往后翻一年
+            prevDate = setYear(date, date.getFullYear() + 1);
+            prevDate.setMonth(0);
+            break;
+        default:
+            prevDate = setMonth(date, month + 1);
+    }
+    return prevDate;
+}
+
+/**
+ * 累减月份, 返回新日期
+ * @param d
+ */
+export function decreaseMonth(d: Date) {
+    const date = new Date(d);
+    const month = date.getMonth();
+    let prevDate: Date;
+    switch (month) {
+        case 0:
+            // 往前翻一年
+            prevDate = setYear(date, date.getFullYear() - 1);
+            prevDate.setMonth(11);
+            break;
+        default:
+            prevDate = setMonth(date, month - 1);
+    }
+    return prevDate;
+}
+
+/**
  * 设置日, 返回新日期
  * @param d
  * @param year

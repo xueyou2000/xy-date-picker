@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { formatDate, setMonth, setYearMonthDay } from "./date";
+import { formatDate, setMonth, setYearMonthDay, daysInMonth, decreaseMonth, incrementMonth } from "./date";
 import { CalendarPickerProps } from "./interface";
 import { DatePickerLocal } from "./Locale";
 import { getDates } from "./Utils";
@@ -31,25 +31,20 @@ export function CalendarPicker(props: CalendarPickerProps) {
      */
     function calcCalendar() {
         // 上一个月的date集合
-        const beforDates = getDates(setMonth(which, which.getMonth() - 1));
+        const beforDates = getDates(decreaseMonth(which));
         // 面板所处月的date集合
         const currentDates = getDates(which);
         // 下一个月的date集合
-        const afterDates = getDates(setMonth(which, which.getMonth() + 1));
+        const afterDates = getDates(incrementMonth(which));
+
         // 获取当前面板所在月第一天是星期几 0=星期日, 1=星期一
         const week = currentDates[0].getDay();
 
-        // 追加上个月
-        let dates = [];
-        if (week === 1) {
-            dates = beforDates.slice(beforDates.length - 7).concat(currentDates);
-        } else {
-            dates = beforDates.slice(beforDates.length - week + 1).concat(currentDates);
-        }
+        // 追加上个月/下个月
+        const befors = beforDates.slice(beforDates.length - (week === 0 ? 7 : week - 1));
+        const dates = [...befors, ...currentDates, ...afterDates];
 
-        // 缀加下个月
-        dates = dates.concat(afterDates).slice(0, RowsNum * ColNum);
-        return dates;
+        return dates.slice(0, RowsNum * ColNum);
     }
 
     function factoryRows() {

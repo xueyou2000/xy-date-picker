@@ -1,0 +1,220 @@
+$PickerCombobox: "xy-date-picker-combobox";
+$CalendarPicker: "xy-calendar-picker";
+$YearPicker: "xy-year-picker";
+$MonthPicker: "xy-month-picker";
+
+.#{$PickerCombobox} {
+    width: 279px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0.1px;
+
+    .#{$PickerCombobox}-month-prev,
+    .#{$PickerCombobox}-month-next {
+        display: none;
+    }
+
+    .xy-picker-combobox,
+    .#{$CalendarPicker},
+    .#{$YearPicker},
+    .#{$MonthPicker} {
+        width: 100%;
+        border: none;
+        padding: 0;
+    }
+
+    .xy-month-picker-cell,
+    .xy-year-picker-cell {
+        padding: 16px 0;
+    }
+
+    .xy-picker-number li {
+        padding-left: 32px;
+    }
+
+    .xy-picker-combobox {
+        height: 100%;
+    }
+    .xy-picker-number {
+        max-height: 100%;
+    }
+}
+
+.#{$PickerCombobox}-body {
+    height: 229px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+}
+
+.#{$PickerCombobox}-footer {
+    padding: 0 12px;
+    line-height: 38px;
+    border-top: 1px solid #e8e8e8;
+    box-sizing: border-box;
+}
+
+.#{$PickerCombobox}-footer-btns {
+    display: block;
+    text-align: center;
+
+    .today-btn {
+        // display: block;
+        // text-align: center;
+        // margin: 0;
+        color: #1890ff;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: #40a9ff;
+        }
+    }
+
+    .time-picker-btn {
+        color: #1890ff;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 8px;
+
+        &:hover {
+            color: #40a9ff;
+        }
+    }
+
+    .#{$PickerCombobox}-ok-btn {
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        border: 1px solid transparent;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        user-select: none;
+        touch-action: manipulation;
+        height: 32px;
+        padding: 0 15px;
+        color: #fff;
+        background-color: #1890ff;
+        border-color: #1890ff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+        height: 24px;
+        padding: 0 7px;
+        font-size: 14px;
+        border-radius: 4px;
+        line-height: 22px;
+
+        &:hover {
+            color: #fff;
+            background-color: #40a9ff;
+            border-color: #40a9ff;
+        }
+    }
+}
+
+.#{$PickerCombobox}-header {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+    user-select: none;
+}
+.#{$PickerCombobox}-title {
+    display: inline-block;
+    padding: 0 2px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    line-height: 40px;
+}
+.#{$PickerCombobox}-title__select {
+    display: inline-block;
+    padding: 0 2px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+        color: #40a9ff;
+    }
+}
+.#{$PickerCombobox}-decade-btn {
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    padding: 0 5px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 16px;
+    font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", sans-serif;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+        color: #40a9ff;
+    }
+}
+.#{$PickerCombobox}-year-prev {
+    left: 7px;
+
+    &:after {
+        content: "«";
+    }
+}
+.#{$PickerCombobox}-year-next {
+    right: 7px;
+
+    &:after {
+        content: "»";
+    }
+}
+.#{$PickerCombobox}-month-prev {
+    left: 29px;
+
+    &:after {
+        content: "‹";
+    }
+}
+.#{$PickerCombobox}-month-next {
+    right: 29px;
+
+    &:after {
+        content: "›";
+    }
+}
+.show-time {
+    .#{$PickerCombobox}-footer-btns {
+        text-align: right;
+
+        .today-btn {
+            float: left;
+            margin: 0;
+            text-align: center;
+            color: #1890ff;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                color: #40a9ff;
+            }
+        }
+    }
+}
+
+.selection-mode-2 {
+    .#{$PickerCombobox}-month-prev,
+    .#{$PickerCombobox}-month-next {
+        display: block;
+    }
+}
+.selection-mode-3 {
+    .#{$PickerCombobox}-body {
+        padding: 0;
+    }
+}

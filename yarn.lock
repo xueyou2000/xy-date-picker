@@ -645,7 +645,14 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.18"
 
-"@fortawesome/free-solid-svg-icons@^5.8.1":
+"@fortawesome/free-regular-svg-icons@^5.8.2":
+  version "5.8.2"
+  resolved "https://registry.npm.taobao.org/@fortawesome/free-regular-svg-icons/download/@fortawesome/free-regular-svg-icons-5.8.2.tgz#f61c603c73695a41bcee9d6f9d44e2ca4829f151"
+  integrity sha1-9hxgPHNpWkG87p1vnUTiykgp8VE=
+  dependencies:
+    "@fortawesome/fontawesome-common-types" "^0.2.18"
+
+"@fortawesome/free-solid-svg-icons@^5.8.1", "@fortawesome/free-solid-svg-icons@^5.8.2":
   version "5.8.2"
   resolved "https://registry.npm.taobao.org/@fortawesome/free-solid-svg-icons/download/@fortawesome/free-solid-svg-icons-5.8.2.tgz#aa2f042f73aca43eb4a26149907e63bf26d2e31c"
   integrity sha1-qi8EL3OspD60omFJkH5jvybS4xw=
@@ -8936,6 +8943,21 @@ xy-model@^0.0.2:
     react-dom "^16.8.2"
     utils-hooks "^0.0.65"
     xy-messagebox "^0.0.4"
+
+xy-time-picker@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npm.taobao.org/xy-time-picker/download/xy-time-picker-0.0.4.tgz#a6abc30505ea6fe40958e7a675e260a683877564"
+  integrity sha1-pqvDBQXqb+QJWOemdeJgpoOHdWQ=
+  dependencies:
+    "@fortawesome/free-regular-svg-icons" "^5.8.2"
+    "@fortawesome/free-solid-svg-icons" "^5.8.2"
+    "@fortawesome/react-fontawesome" "^0.1.4"
+    classnames "^2.2.6"
+    react "^16.8.2"
+    react-dom "^16.8.2"
+    utils-hooks "0.0.71"
+    xy-input "0.0.91"
+    xy-trigger "0.0.94"
 
 xy-trigger@0.0.94:
   version "0.0.94"

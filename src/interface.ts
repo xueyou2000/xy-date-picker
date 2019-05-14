@@ -45,3 +45,47 @@ export interface CalendarPickerProps extends YearPickerProps {
      */
     onDayMouseEnter?: (date: Date) => void;
 }
+
+export interface DatePickerComboboxProps extends CalendarPickerProps {
+    /**
+     * 日期
+     */
+    value?: Date;
+    /**
+     * 默认日期
+     */
+    defaultValue?: Date;
+    /**
+     * 日期改变
+     */
+    onChange?: (date: Date) => void;
+    /**
+     * 默认所处日期
+     */
+    defaultWhich?: Date;
+    /**
+     * 所处日期更改
+     */
+    onWhichChange?: (date: Date) => void;
+    /**
+     * 年选择
+     */
+    onYearPicker?: (date: Date) => void;
+    /**
+     * 月选择
+     */
+    onMonthPicker?: (date: Date) => void;
+    /**
+     * 日选择
+     */
+    onDayPicker?: (date: Date) => void;
+    /**
+     * 确定事件, 用于收起面板
+     * @description 当选择模式为日模式时， 选择日会触发， 当可以选择时间时候，点击确定按钮触发
+     */
+    onConfirm?: Function;
+    /**
+     * 是否可以选择时间
+     */
+    showTime?: boolean;
+}

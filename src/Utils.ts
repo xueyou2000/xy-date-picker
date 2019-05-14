@@ -1,4 +1,4 @@
-import { setYear, daysInMonth, setDate } from "./date";
+import { setYear, daysInMonth, setDate, formatDate } from "./date";
 
 /**
  * 获取当前年份临近的年数组

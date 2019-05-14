@@ -51,6 +51,7 @@
         "react-dom": "^16.8.2",
         "utils-hooks": "0.0.71",
         "xy-input": "0.0.91",
+        "xy-time-picker": "^0.0.4",
         "xy-trigger": "0.0.94"
     },
     "repository": {
@@ -59,7 +60,7 @@
     },
     "jest": {
         "transformIgnorePatterns": [
-            "<rootDir>/node_modules/(?!(utils-hooks|utils-dom|xy-input|xy-trigger))"
+            "<rootDir>/node_modules/(?!(utils-hooks|utils-dom|xy-input|xy-trigger|xy-time-picker))"
         ]
     }
 }
