@@ -34,3 +34,14 @@ export interface YearPickerProps {
      */
     max?: Date;
 }
+
+export interface CalendarPickerProps extends YearPickerProps {
+    /**
+     * 高亮选中区间
+     */
+    selectRange?: [Date, Date];
+    /**
+     * 日期鼠标移入事件
+     */
+    onDayMouseEnter?: (date: Date) => void;
+}

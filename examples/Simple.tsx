@@ -1,13 +1,17 @@
 import React from "react";
-import { YearPicker, MonthPicker } from "../src";
+import { YearPicker, MonthPicker, CalendarPicker } from "../src";
 import "./index.scss";
 
 export default function() {
     const d = new Date();
-    d.setMonth(3);
+    d.setDate(3);
+
+    const end = new Date();
+    end.setDate(27);
+
     return (
         <div className="date-picker-demo">
-            <MonthPicker min={d} />
+            <CalendarPicker selectRange={[d, end]} />
         </div>
     );
 }

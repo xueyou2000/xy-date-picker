@@ -1,3 +1,3 @@
 import "./date-picker.scss";
-import "./month-picker.scss";
-import "./year-picker.scss";
+import "./calendar.scss";
+import "./picker.scss";

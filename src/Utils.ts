@@ -1,24 +1,4 @@
-/**
- * 设置年份, 返回新日期
- * @param d
- * @param year
- */
-export function setYear(d: Date, year: number) {
-    const date = new Date(d);
-    date.setFullYear(year);
-    return date;
-}
-
-/**
- * 设置月份, 返回新日期
- * @param d
- * @param year
- */
-export function setMonth(d: Date, month: number) {
-    const date = new Date(d);
-    date.setMonth(month);
-    return date;
-}
+import { setYear, daysInMonth, setDate } from "./date";
 
 /**
  * 获取当前年份临近的年数组
@@ -42,4 +22,16 @@ export function nearYears(d: Date, containNear = true) {
         years.push(setPrefixYear(9) + 1);
     }
     return years;
+}
+
+/**
+ * 获取一个月的date日期数组集合
+ */
+export function getDates(date: Date) {
+    const dates: Date[] = [];
+    const days = daysInMonth(date);
+    for (let day = 1; day <= days; ++day) {
+        dates.push(setDate(date, day));
+    }
+    return dates;
 }

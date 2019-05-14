@@ -25,3 +25,49 @@ export function formatDate(t: Date, format = "yyyy-MM-dd HH:mm:ss") {
         }
     });
 }
+
+/**
+ * 设置年份, 返回新日期
+ * @param d
+ * @param year
+ */
+export function setYear(d: Date, year: number) {
+    const date = new Date(d);
+    date.setFullYear(year);
+    return date;
+}
+
+/**
+ * 设置月份, 返回新日期
+ * @param d
+ * @param year
+ */
+export function setMonth(d: Date, month: number) {
+    const date = new Date(d);
+    date.setMonth(month);
+    return date;
+}
+
+/**
+ * 设置日, 返回新日期
+ * @param d
+ * @param year
+ */
+export function setDate(d: Date, day: number) {
+    const date = new Date(d);
+    date.setDate(day);
+    return date;
+}
+
+/**
+ * 设置年月日, 返回新日期
+ * @param d
+ * @param year
+ */
+export function setYearMonthDay(d: Date, other: Date) {
+    const date = new Date(d);
+    date.setFullYear(other.getFullYear());
+    date.setMonth(other.getMonth());
+    date.setDate(other.getDate());
+    return date;
+}

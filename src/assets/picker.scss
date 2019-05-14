@@ -17,10 +17,6 @@ $MonthPicker: "xy-month-picker";
         border: none;
         margin: 0;
     }
-
-    tr:nth-of-type(odd) {
-        background-color: #fff;
-    }
 }
 
 .#{$MonthPicker}-cell,

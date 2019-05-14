@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import React from "react";
 import { YearPickerProps } from "./interface";
-import { nearYears, setYear } from "./Utils";
+import { setYear } from "./date";
+import { nearYears } from "./Utils";
 
 // 行数
 export const RowsNum: number = 4;
@@ -11,6 +12,12 @@ export const ColNum: number = 3;
 export function YearPicker(props: YearPickerProps) {
     const { prefixCls = "xy-year-picker", className, value, onPicker, style, min, max } = props;
     const which = props.which ? props.which : value ? value : new Date();
+
+    function selectYear(year: number) {
+        if (onPicker) {
+            onPicker(setYear(value || which, year));
+        }
+    }
 
     function factoryYearRows() {
         const years = nearYears(which);
@@ -45,8 +52,8 @@ export function YearPicker(props: YearPickerProps) {
                 <a
                     className={`${prefixCls}-cell-inner`}
                     onClick={() => {
-                        if (!disabled && onPicker) {
-                            onPicker(d);
+                        if (!disabled) {
+                            selectYear(year);
                         }
                     }}
                 >
