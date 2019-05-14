@@ -1,3 +1,5 @@
+import { isTime } from "./time";
+
 /**
  * 格式化日期字符串
  * @param t 日期
@@ -24,6 +26,79 @@ export function formatDate(t: Date, format = "yyyy-MM-dd HH:mm:ss") {
                 return tf(t.getSeconds());
         }
     });
+}
+
+/**
+ * 验证日期字符串格式
+ * @description 例如: 2018-03-26
+ * @param date 日期字符串
+ */
+export function isDateFormat(date: string): boolean {
+    if (!date) {
+        return false;
+    }
+    var status = true;
+    var regexp = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/;
+    var matches = regexp.exec(date);
+    if (matches == null) {
+        return false;
+    }
+    var matches3 = parseInt(matches[3]);
+    if (matches3 <= 0 || matches3 > 12) {
+        return false;
+    }
+    var matches4 = parseInt(matches[4]);
+    if (!matches) {
+        status = false;
+    }
+    if (status && matches4 > 31) {
+        status = false;
+    }
+    if (status && matches3 == 2 && matches4 > 28) {
+        status = false;
+    }
+    if (status && (matches3 == 1 || matches3 == 3 || matches3 == 5 || matches3 == 7 || matches3 == 8 || matches3 == 10 || matches3 == 12) && matches4 > 31) {
+        status = false;
+    }
+    return status;
+}
+
+/**
+ * 验证日期字符串格式
+ * @description 例如: 2018-03-26 10:32:33
+ * @param date 日期字符串
+ */
+export function isDateISO(date: string): boolean {
+    if (!date) {
+        return false;
+    }
+    var status = true;
+    var regexp = /^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2}) ((\d{1,2}):(\d{1,2}):(\d{1,2}))$/;
+    var matches = regexp.exec(date);
+    if (matches == null) {
+        return false;
+    }
+    var matches3 = parseInt(matches[3]);
+    if (matches3 <= 0 || matches3 > 12) {
+        return false;
+    }
+    var matches4 = parseInt(matches[4]);
+    if (!matches) {
+        status = false;
+    }
+    if (status && matches4 > 31) {
+        status = false;
+    }
+    if (status && matches3 == 2 && matches4 > 28) {
+        status = false;
+    }
+    if (status && (matches3 == 1 || matches3 == 3 || matches3 == 5 || matches3 == 7 || matches3 == 8 || matches3 == 10 || matches3 == 12) && matches4 > 31) {
+        status = false;
+    }
+    if (status && !isTime(matches[5])) {
+        status = false;
+    }
+    return status;
 }
 
 /**
