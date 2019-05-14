@@ -1,0 +1,122 @@
+$YearPicker: "xy-year-picker";
+$MonthPicker: "xy-month-picker";
+
+.#{$MonthPicker},
+.#{$YearPicker} {
+    width: 278px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0.1px;
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+        border-collapse: collapse;
+        border: none;
+        margin: 0;
+    }
+
+    tr:nth-of-type(odd) {
+        background-color: #fff;
+    }
+}
+
+.#{$MonthPicker}-cell,
+.#{$YearPicker}-cell {
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    border: 0;
+    padding: initial;
+    user-select: none;
+    padding: 20px 0;
+
+    &.disabled {
+        .#{$MonthPicker}-cell-inner,
+        .#{$YearPicker}-cell-inner {
+            background-color: #f4f4f4;
+            cursor: not-allowed;
+            color: #ccc;
+            cursor: no-drop;
+        }
+    }
+}
+.not-now-century {
+    .#{$YearPicker}-cell-inner {
+        color: rgba(0, 0, 0, 0.25);
+    }
+}
+.#{$MonthPicker}-cell.selected:not(.disabled),
+.#{$YearPicker}-cell.selected:not(.disabled) {
+    .#{$MonthPicker}-cell-inner,
+    .#{$YearPicker}-cell-inner {
+        font-weight: 500;
+        background-color: #1890ff;
+        color: #fff;
+    }
+}
+
+.#{$MonthPicker}-cell-inner,
+.#{$YearPicker}-cell-inner {
+    display: inline-block;
+    height: 24px;
+    margin: 0 auto;
+    padding: 0 8px;
+    color: rgba(0, 0, 0, 0.65);
+    line-height: 24px;
+    text-align: center;
+    background: transparent;
+    border-radius: 2px;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: #e6f7ff;
+        color: #40a9ff;
+    }
+}
+.#{$YearPicker}-header {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+    user-select: none;
+}
+.#{$YearPicker}-title {
+    display: inline-block;
+    padding: 0 2px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    line-height: 40px;
+}
+.#{$YearPicker}-decade-btn {
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    padding: 0 5px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 16px;
+    font-family: Arial, "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Sans Serif", sans-serif;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+        color: #40a9ff;
+    }
+}
+.#{$YearPicker}-prev {
+    left: 7px;
+
+    &:after {
+        content: "«";
+    }
+}
+.#{$YearPicker}-next {
+    right: 7px;
+
+    &:after {
+        content: "»";
+    }
+}
