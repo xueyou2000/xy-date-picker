@@ -112,7 +112,7 @@ $PickerCombobox: "xy-date-picker-combobox";
     animation: 0.3s slideUpIn;
 }
 .#{$DatePicker}.#{$DatePicker}-topLeft {
-    .#{$DatePickerPlane} {
+    .#{$DatePickerPlane}-content {
         display: flex;
         flex-direction: column-reverse;
     }

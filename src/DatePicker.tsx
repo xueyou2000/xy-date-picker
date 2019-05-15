@@ -1,6 +1,7 @@
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classNames from "classnames";
 import React, { useCallback, useRef } from "react";
 import { TriggerAction, useControll } from "utils-hooks";
 import { Input } from "xy-input";
@@ -8,13 +9,12 @@ import "xy-input/assets/index.css";
 import Trigger from "xy-trigger";
 import DatePickerPanel from "./DatePickerPanel";
 import { DatePickerProps } from "./interface";
-import classNames from "classnames";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
 export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-date-picker", className, style, onVisibleChange, onChange, disabled, onBlur, onConfirm, placeholder = "请选择日期", ...rest } = props;
+    const { prefixCls = "xy-date-picker", className, style, onVisibleChange, renderTimePickerPanel = DatePickerPanel, onChange, disabled, onBlur, onConfirm, placeholder = "请选择日期", ...rest } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
     const inputRef = useRef(null);
@@ -68,7 +68,17 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
     );
 
     function renderPopup() {
-        return <DatePickerPanel {...rest} disabled={disabled} placeholder={placeholder} onBlur={onBlur} inputRef={inputRef} value={inputValue} onChange={changeValue} onConfirm={hide} />;
+        return React.createElement(renderTimePickerPanel, {
+            ...rest,
+            disabled,
+            placeholder,
+            onBlur,
+            inputRef,
+            value: inputValue,
+            onChange: changeValue,
+            onConfirm: hide
+        });
+        // return <DatePickerPanel {...rest} disabled={disabled} placeholder={placeholder} onBlur={onBlur} inputRef={inputRef} value={inputValue} onChange={changeValue} onConfirm={hide} />;
     }
 
     return (

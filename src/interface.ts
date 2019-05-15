@@ -169,6 +169,11 @@ export interface DatePickerProps extends DatePickerPanelProps {
      * 改变事件
      */
     onVisibleChange?: (visible: boolean) => void;
+    /**
+     * 自定义渲染时间面板内容
+     * @description 仅用于时间范围组件
+     */
+    renderTimePickerPanel?: (props: DatePickerPanelProps) => JSX.Element;
 }
 
 export interface DatePickerShortcuts {
@@ -234,7 +239,6 @@ export interface YearMonthPickerPanelProps extends InputGenericProps {
      */
     onConfirm?: Function;
 }
-
 
 export interface YearMonthPickerProps extends YearMonthPickerPanelProps {
     /**
