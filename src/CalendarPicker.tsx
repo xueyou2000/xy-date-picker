@@ -13,7 +13,7 @@ const ColNum: number = 7;
 // 年月格式化
 const YearMonth = "yyyy-MM";
 // 年月日格式化
-const YearMonthDay = "yyyy-MM-dd";
+export const YearMonthDay = "yyyy-MM-dd";
 
 export function CalendarPicker(props: CalendarPickerProps) {
     const { prefixCls = "xy-calendar-picker", className, style, value, onPicker, min, max, onDayMouseEnter, selectRange } = props;

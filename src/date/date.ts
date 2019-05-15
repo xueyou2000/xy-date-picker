@@ -1,4 +1,4 @@
-import { isTime } from "./time";
+import { isTime, timeParse } from "./time";
 
 /**
  * 格式化日期字符串
@@ -99,6 +99,44 @@ export function isDateISO(date: string): boolean {
         status = false;
     }
     return status;
+}
+
+/**
+ * 解析日期字符串
+ * @param date 只能是 2018-03-26 这种字符串
+ */
+export function dateFormatParse(dateStr: string, d?: Date) {
+    const date = d || new Date();
+    const [year, month, day] = dateStr.split("-");
+    date.setFullYear(parseInt(year));
+    date.setMonth(parseInt(month) - 1);
+    date.setDate(parseInt(day));
+    return date;
+}
+
+/**
+ * 解析日期字符串
+ * @param date 只能是 2018-03-26 10:32:33 这种字符串
+ */
+export function dateISOParse(dateStr: string, d?: Date) {
+    const [_date, _time] = dateStr.split(" ");
+    const date = dateFormatParse(_date, d);
+    const finallyDate = timeParse(_time, date);
+    return finallyDate;
+}
+
+/**
+ * 解析日期字符串
+ * @description 可以是2018-03-26 10:32:33，也可以不带时分秒
+ */
+export function dateParse(dateStr: string) {
+    if (isDateFormat(dateStr)) {
+        return dateFormatParse(dateStr);
+    } else if (isDateISO(dateStr)) {
+        return dateISOParse(dateStr);
+    } else {
+        return null;
+    }
 }
 
 /**

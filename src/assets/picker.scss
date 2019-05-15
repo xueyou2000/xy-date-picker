@@ -28,6 +28,7 @@ $MonthPicker: "xy-month-picker";
     padding: initial;
     user-select: none;
     padding: 20px 0;
+    user-select: none;
 
     &.disabled {
         .#{$MonthPicker}-cell-inner,

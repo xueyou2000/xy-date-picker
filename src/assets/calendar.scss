@@ -35,6 +35,7 @@ $CalendarPicker: "xy-calendar-picker";
     text-align: center;
     border: 0;
     box-sizing: border-box;
+    user-select: none;
 
     &.disabled {
         .#{$CalendarPicker}-cell-inner {

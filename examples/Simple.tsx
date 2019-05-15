@@ -1,5 +1,5 @@
 import React from "react";
-import { YearPicker, MonthPicker, CalendarPicker, DatePickerCombobox } from "../src";
+import { DatePickerPanel } from "../src";
 import "./index.scss";
 import { formatDate } from "../src/date";
 
@@ -11,7 +11,7 @@ export default function() {
 
     return (
         <div className="date-picker-demo">
-            <DatePickerCombobox selectRange={[start, end]} showTime={true} onChange={(d) => console.log("change", formatDate(d))} onConfirm={() => console.log("确定了，关闭")} />
+            <DatePickerPanel selectRange={[start, end]} onChange={(d) => console.log("change", d)} onConfirm={() => console.log("确定了，关闭")} />
         </div>
     );
 }
