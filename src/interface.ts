@@ -153,7 +153,7 @@ export interface DatePickerPanelProps extends DatePickerComboboxNoChange, InputG
     /**
      * 快捷方式
      */
-    shortcuts?: IDatePickerShortcuts[];
+    shortcuts?: DatePickerShortcuts[];
 }
 
 export interface DatePickerProps extends DatePickerPanelProps {
@@ -171,7 +171,7 @@ export interface DatePickerProps extends DatePickerPanelProps {
     onVisibleChange?: (visible: boolean) => void;
 }
 
-export interface IDatePickerShortcuts {
+export interface DatePickerShortcuts {
     /**
      * 显示文本
      */
@@ -180,4 +180,73 @@ export interface IDatePickerShortcuts {
      * 点击后选择日期
      */
     date: Date;
+}
+
+export interface YearMonthPickerPanelProps extends InputGenericProps {
+    /**
+     * 附加类名
+     */
+    prefixCls?: string;
+    /**
+     * 根节点的附加类名
+     */
+    className?: string;
+    /**
+     * 内联样式
+     */
+    style?: React.CSSProperties;
+    /**
+     * 日期
+     * @description 年月字符串
+     */
+    value?: string;
+    /**
+     * 默认日期
+     * @description 年月字符串
+     */
+    defaultValue?: string;
+    /**
+     * onChange事件
+     */
+    onChange?: (value: string) => void;
+    /**
+     * 输入框ref
+     */
+    inputRef?: React.MutableRefObject<any>;
+
+    /**
+     * 面板所处日期
+     */
+    which?: Date;
+    /**
+     * 最小日期
+     * @description 小于此时间不可选
+     */
+    min?: Date;
+    /**
+     * 最大日期
+     * @description 大于此时间不可选
+     */
+    max?: Date;
+    /**
+     * 确定事件, 用于收起面板
+     * @description 当选择模式为日模式时， 选择日会触发， 当可以选择时间时候，点击确定按钮触发
+     */
+    onConfirm?: Function;
+}
+
+
+export interface YearMonthPickerProps extends YearMonthPickerPanelProps {
+    /**
+     * 是否显示下拉面板
+     */
+    visible?: boolean;
+    /**
+     * 默认是否显示下拉面板
+     */
+    defaultVisible?: boolean;
+    /**
+     * 改变事件
+     */
+    onVisibleChange?: (visible: boolean) => void;
 }

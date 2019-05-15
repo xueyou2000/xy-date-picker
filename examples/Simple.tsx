@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DatePicker } from "../src";
+import { YearMonthPicker } from "../src";
 import "./index.scss";
 
 const date = new Date();
@@ -26,7 +26,7 @@ const shortcuts = [
 export default function() {
     return (
         <div className="date-picker-demo">
-            <DatePicker shortcuts={shortcuts} />
+            <YearMonthPicker onChange={(v) => console.log(v)} />
         </div>
     );
 }

@@ -11,7 +11,7 @@ const RowsNum: number = 6;
 const ColNum: number = 7;
 
 // 年月格式化
-const YearMonth = "yyyy-MM";
+export const YearMonth = "yyyy-MM";
 // 年月日格式化
 export const YearMonthDay = "yyyy-MM-dd";
 

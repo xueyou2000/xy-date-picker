@@ -1,6 +1,8 @@
 $DatePicker: "xy-date-picker";
 $DatePickerTrigger: "xy-date-picker-trigger";
 
+$PickerCombobox: "xy-date-picker-combobox";
+
 $DatePickerPlane: "xy-date-picker-panel";
 $PickerCombobox: "xy-date-picker-combobox";
 
@@ -19,6 +21,18 @@ $PickerCombobox: "xy-date-picker-combobox";
     .#{$PickerCombobox} {
         width: 100%;
         border: none;
+    }
+
+    &.year-and-month {
+        .#{$DatePickerPlane}-content {
+            width: 100%;
+        }
+        .#{$PickerCombobox}-body {
+            height: auto;
+        }
+        .#{$PickerCombobox}-footer {
+            display: none;
+        }
     }
 }
 .#{$DatePickerPlane}-input-wrap {
@@ -84,6 +98,12 @@ $PickerCombobox: "xy-date-picker-combobox";
     transform-origin: center top;
     z-index: 100;
 
+    .year-and-month {
+        .#{$DatePickerPlane}-content {
+            width: 280px;
+        }
+    }
+
     &.#{$DatePicker}-state-exited {
         display: none;
     }
@@ -102,6 +122,13 @@ $PickerCombobox: "xy-date-picker-combobox";
 }
 
 .#{$DatePicker}-icon {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: text;
+}
+.#{$DatePicker}-icon:not(.has-value) {
+    pointer-events: none;
+}
+.#{$DatePicker}-icon.has-value {
     cursor: pointer;
     color: rgba(0, 0, 0, 0.25);
 

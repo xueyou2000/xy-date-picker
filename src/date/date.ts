@@ -102,6 +102,42 @@ export function isDateISO(date: string): boolean {
 }
 
 /**
+ * 验证年月字符串
+ * @param date 年月字符串 2018-03 这种格式
+ */
+export function isYearMonth(date: string) {
+    if (!date) {
+        return false;
+    }
+    var regexp = /^(\d{1,4})(-|\/)(\d{1,2})$/;
+    var matches = regexp.exec(date);
+    if (matches == null) {
+        return false;
+    }
+    var matches3 = parseInt(matches[3]);
+    if (matches3 <= 0 || matches3 > 12) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * 解析年月字符串
+ * @param date 只能是 2018-03 这种字符串
+ */
+export function yearMonthParse(yearMonth: string) {
+    if (isYearMonth(yearMonth)) {
+        const [year, month] = yearMonth.split("-");
+        const date = new Date();
+        date.setFullYear(parseInt(year));
+        date.setMonth(parseInt(month) - 1);
+        return date;
+    } else {
+        return null;
+    }
+}
+
+/**
  * 解析日期字符串
  * @param date 只能是 2018-03-26 这种字符串
  */
