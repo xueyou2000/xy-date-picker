@@ -15,7 +15,7 @@ export function YearPicker(props: YearPickerProps) {
 
     function selectYear(year: number) {
         if (onPicker) {
-            onPicker(setYear(value || which, year));
+            onPicker(setYear(which, year));
         }
     }
 

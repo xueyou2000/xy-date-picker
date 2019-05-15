@@ -21,7 +21,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
 
     function selectDay(date: Date) {
         if (onPicker) {
-            onPicker(setYearMonthDay(value || which, date));
+            onPicker(setYearMonthDay(which, date));
         }
     }
 

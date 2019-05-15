@@ -11,7 +11,7 @@ export function MonthPicker(props: YearPickerProps) {
 
     function selectMonth(month: number) {
         if (onPicker) {
-            onPicker(setMonth(value || which, month));
+            onPicker(setMonth(which, month));
         }
     }
 

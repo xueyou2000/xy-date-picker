@@ -150,4 +150,34 @@ export interface DatePickerPanelProps extends DatePickerComboboxNoChange, InputG
      * 输入框ref
      */
     inputRef?: React.MutableRefObject<any>;
+    /**
+     * 快捷方式
+     */
+    shortcuts?: IDatePickerShortcuts[];
+}
+
+export interface DatePickerProps extends DatePickerPanelProps {
+    /**
+     * 是否显示下拉面板
+     */
+    visible?: boolean;
+    /**
+     * 默认是否显示下拉面板
+     */
+    defaultVisible?: boolean;
+    /**
+     * 改变事件
+     */
+    onVisibleChange?: (visible: boolean) => void;
+}
+
+export interface IDatePickerShortcuts {
+    /**
+     * 显示文本
+     */
+    text: string;
+    /**
+     * 点击后选择日期
+     */
+    date: Date;
 }

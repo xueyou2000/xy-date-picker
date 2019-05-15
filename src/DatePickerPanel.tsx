@@ -7,7 +7,7 @@ import { YearMonthDay } from "./CalendarPicker";
 import DatePickerCombobox from "./DatePickerCombobox";
 
 export function DatePickerPanel(props: DatePickerPanelProps) {
-    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = "请选择日期", inputRef, onFocus, onBlur, onKeyDown, onChange, disabled, ...rest } = props;
+    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = "请选择日期", inputRef, onFocus, onBlur, onKeyDown, onChange, disabled, shortcuts, ...rest } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState<string>(isDate(valueProps) ? valueProps : "");
@@ -68,6 +68,9 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
             // Enter 确定
             case 13:
                 blurHandle(event as any);
+                if (props.onConfirm) {
+                    props.onConfirm();
+                }
                 event.stopPropagation();
                 break;
         }
@@ -77,12 +80,38 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
         }
     }, []);
 
+    function shortcutBtnHandle(date: Date) {
+        datePickerHandle(date);
+        if (props.onConfirm) {
+            props.onConfirm();
+        }
+    }
+
+    function renderShortcuts() {
+        if (shortcuts) {
+            return (
+                <div className={`${prefixCls}-shortcuts-sidebar`}>
+                    {shortcuts.map((shortcut, i) => (
+                        <button key={i} className={`${prefixCls}-shortcuts-btn`} onClick={() => shortcutBtnHandle(shortcut.date)}>
+                            {shortcut.text}
+                        </button>
+                    ))}
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
+
     return (
-        <div className={classNames(prefixCls, className)} style={style}>
-            <div className={`${prefixCls}-input-wrap`}>
-                <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
+        <div className={classNames(prefixCls, className, { [`${prefixCls}-show-shortcut`]: !!shortcuts })} style={style}>
+            <div className={`${prefixCls}-content`}>
+                <div className={`${prefixCls}-input-wrap`}>
+                    <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
+                </div>
+                <DatePickerCombobox {...rest} value={dateParse(date)} onChange={datePickerHandle} />
             </div>
-            <DatePickerCombobox {...rest} value={dateParse(date)} onChange={datePickerHandle} />
+            {renderShortcuts()}
         </div>
     );
 }

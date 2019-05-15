@@ -1,16 +1,32 @@
 import React, { useState } from "react";
-import { DatePickerPanel, SelectionMode } from "../src";
+import { DatePicker } from "../src";
 import "./index.scss";
 
-export default function() {
-    const [mode, setMode] = useState<SelectionMode>(SelectionMode.Day);
+const date = new Date();
+date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
 
+const b = new Date();
+b.setTime(b.getTime() + 3600 * 1000 * 24 * 1);
+
+const shortcuts = [
+    {
+        text: "今天",
+        date: new Date()
+    },
+    {
+        text: "明天",
+        date: b
+    },
+    {
+        text: "一周前",
+        date: date
+    }
+];
+
+export default function() {
     return (
         <div className="date-picker-demo">
-            <button onClick={() => setMode(SelectionMode.Time)}>选择时间</button>
-            <DatePickerPanel selectionMode={mode} onSelectionModeChange={setMode} />
-
-            <DatePickerPanel selectionMode={mode} onSelectionModeChange={setMode} />
+            <DatePicker shortcuts={shortcuts} />
         </div>
     );
 }
