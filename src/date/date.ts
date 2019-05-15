@@ -102,6 +102,62 @@ export function isDateISO(date: string): boolean {
 }
 
 /**
+ * 是否日期字符串
+ * @param dateVal   日期字符串
+ * @param showTime  是否显示时间
+ */
+export function isDate(dateVal: string, showTime = false) {
+    if (showTime) {
+        return isDateISO(dateVal);
+    } else {
+        return isDateFormat(dateVal);
+    }
+}
+
+/**
+ * 验证范围日期字符串
+ * @param date
+ * @param showTime
+ * @param separator
+ */
+export function isDateRange(date: string, showTime = false, separator: string = " - ") {
+    const segments = dateRangeSplit(date, separator);
+    return isDate(segments[0], showTime) && isDate(segments[1], showTime);
+}
+
+/**
+ * 分解范围日期字符串
+ * @param date
+ * @param showTime 显示时间
+ * @param separator 分隔符
+ */
+export function dateRangeSplit(date: string, separator: string = " - "): [string, string] {
+    if (!date) {
+        return [null, null];
+    }
+    const segments = date.split(separator);
+    if (segments.length !== 2) {
+        return [null, null];
+    }
+    return [segments[0], segments[1]];
+}
+
+/**
+ * 日期范围解析成Date类型
+ * @param date
+ * @param showTime
+ * @param separator
+ */
+export function dateRangeParse(date: string, showTime = false, separator: string = " - "): [Date, Date] {
+    if (isDateRange(date, showTime, separator)) {
+        const [start, end] = dateRangeSplit(date, separator);
+        return [dateParse(start), dateParse(end)];
+    } else {
+        return [null, null];
+    }
+}
+
+/**
  * 验证年月字符串
  * @param date 年月字符串 2018-03 这种格式
  */

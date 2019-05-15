@@ -71,7 +71,16 @@ export function CalendarPicker(props: CalendarPickerProps) {
         // 是否当前面板所处月份中
         const currentMonth = formatDate(date, YearMonth) === formatDate(which, YearMonth);
         // 是否在范围选择中
-        const inRange = selectRange ? dateText >= formatDate(selectRange[0], YearMonthDay) && dateText <= formatDate(selectRange[1], YearMonthDay) : false;
+        let inRange = false;
+        if (selectRange) {
+            if (selectRange[0] && dateText >= formatDate(selectRange[0], YearMonthDay)) {
+                inRange = true;
+            }
+            if (selectRange[1] && dateText <= formatDate(selectRange[1], YearMonthDay)) {
+                inRange = true;
+            }
+        }
+
         const classString = classNames(`${prefixCls}-cell`, {
             disabled,
             selected,

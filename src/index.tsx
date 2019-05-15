@@ -7,5 +7,6 @@ import { SelectionMode } from "./DatePickerCombobox";
 import DatePicker from "./DatePicker";
 import YearMonthPickerPanel from "./YearMonthPickerPanel";
 import YearMonthPicker from "./YearMonthPicker";
+import DateRangePickerPanel from "./DateRangePickerPanel";
 
-export { YearMonthPicker, DatePicker, YearPicker, MonthPicker, CalendarPicker, DatePickerCombobox, DatePickerPanel, SelectionMode, YearMonthPickerPanel };
+export { YearMonthPicker, DatePicker, YearPicker, MonthPicker, CalendarPicker, DatePickerCombobox, DatePickerPanel, SelectionMode, YearMonthPickerPanel, DateRangePickerPanel };

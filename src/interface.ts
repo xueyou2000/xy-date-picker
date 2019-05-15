@@ -254,3 +254,11 @@ export interface YearMonthPickerProps extends YearMonthPickerPanelProps {
      */
     onVisibleChange?: (visible: boolean) => void;
 }
+
+export interface DateRangePickerPanelProps extends DatePickerPanelProps {
+    /**
+     * 分隔符
+     * @description 默认 " - "
+     */
+    separator?: string;
+}

@@ -1,0 +1,55 @@
+$DateRangePicker: "xy-date-range-picker-panel";
+$PickerCombobox: "xy-date-picker-combobox";
+
+.#{$DateRangePicker} {
+    position: relative;
+    z-index: 100;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    .#{$PickerCombobox} {
+        width: 100%;
+        border: none;
+    }
+
+    .#{$PickerCombobox}-footer {
+        display: none;
+    }
+}
+
+.#{$DateRangePicker}-input-wrap {
+    position: relative;
+    box-sizing: border-box;
+    padding: 7px 5px 7px 12px;
+    border-bottom: 1px solid #e8e8e8;
+
+    & > input {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        line-height: normal;
+        border: 0;
+        outline: 0;
+        cursor: auto;
+    }
+}
+
+.#{$DateRangePicker}__inner {
+    min-width: 550px;
+}
+
+.#{$DateRangePicker}__content_left,
+.#{$DateRangePicker}__content_right {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+}
+.#{$DateRangePicker}__content_left {
+    border-right: 1px solid #e9eaec;
+}
