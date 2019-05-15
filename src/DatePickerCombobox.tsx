@@ -18,10 +18,10 @@ export enum SelectionMode {
 }
 
 export function DatePickerCombobox(props: DatePickerComboboxProps) {
-    const { prefixCls = "xy-date-picker-combobox", className, style, onPicker, showTime = false, onWhichChange, onYearPicker, onMonthPicker, onDayPicker, onChange, onConfirm, ...rest } = props;
+    const { prefixCls = "xy-date-picker-combobox", className, style, onPicker, showTime = false, onSelectionModeChange, onWhichChange, onYearPicker, onMonthPicker, onDayPicker, onChange, onConfirm, ...rest } = props;
     const [value, setValue, isValueControll] = useControll<Date>(props, "value", "defaultValue");
     const [which, setWhich, isControll] = useControll(props, "which", "defaultWhich", value || new Date());
-    const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Day);
+    const [selectionMode, setSelectionMode, isSelectionModeControll] = useControll<SelectionMode>(props, "selectionMode", "defaultSelectionMode", SelectionMode.Day);
     const classString = classNames(prefixCls, className, `selection-mode-${selectionMode}`, { "show-time": showTime });
     const time = value ? formatDate(value, "HH:mm:ss") : "00:00:00";
 
@@ -40,6 +40,15 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
         }
         if (onChange) {
             onChange(d);
+        }
+    }
+
+    function changeSelectionMode(mode: SelectionMode) {
+        if (!isSelectionModeControll) {
+            setSelectionMode(mode);
+        }
+        if (onSelectionModeChange) {
+            onSelectionModeChange(mode);
         }
     }
 
@@ -68,22 +77,22 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
     }
 
     function switchYearMode() {
-        setSelectionMode(SelectionMode.Year);
+        changeSelectionMode(SelectionMode.Year);
     }
 
     function switchMonthMode() {
-        setSelectionMode(SelectionMode.Month);
+        changeSelectionMode(SelectionMode.Month);
     }
 
     function switchDayMode() {
-        setSelectionMode(SelectionMode.Day);
+        changeSelectionMode(SelectionMode.Day);
     }
 
     function toggleMode() {
         if (selectionMode === SelectionMode.Time) {
             switchDayMode();
         } else {
-            setSelectionMode(SelectionMode.Time);
+            changeSelectionMode(SelectionMode.Time);
         }
     }
 
@@ -97,7 +106,7 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
 
     function monthPicker(d: Date) {
         changeWhich(d);
-        setSelectionMode(SelectionMode.Day);
+        changeSelectionMode(SelectionMode.Day);
         if (onMonthPicker) {
             onMonthPicker(d);
         }

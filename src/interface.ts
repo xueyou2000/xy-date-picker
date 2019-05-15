@@ -1,3 +1,5 @@
+import { SelectionMode } from "./DatePickerCombobox";
+
 export interface InputGenericProps {
     /**
      * 输入框占位符
@@ -90,6 +92,18 @@ export interface DatePickerComboboxProps extends CalendarPickerProps {
      * 所处日期更改
      */
     onWhichChange?: (date: Date) => void;
+    /**
+     * 面板模式
+     */
+    selectionMode?: SelectionMode;
+    /**
+     * 默认面板模式
+     */
+    defaultSelectionMode?: SelectionMode;
+    /**
+     * 面板模式改变事件
+     */
+    onSelectionModeChange?: (mode: SelectionMode) => void;
     /**
      * 年选择
      */
