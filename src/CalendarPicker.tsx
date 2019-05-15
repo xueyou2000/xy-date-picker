@@ -67,26 +67,23 @@ export function CalendarPicker(props: CalendarPickerProps) {
     function createDayCell(date: Date) {
         const dateText = formatDate(date, YearMonthDay);
         const disabled = (min && date < min) || (max && date > max);
-        const selected = value && formatDate(value, YearMonthDay) === dateText;
+        let selected = value && formatDate(value, YearMonthDay) === dateText;
         // 是否当前面板所处月份中
         const currentMonth = formatDate(date, YearMonth) === formatDate(which, YearMonth);
         // 是否在范围选择中
-        let inRange = false;
-        if (selectRange) {
-            if (selectRange[0] && dateText >= formatDate(selectRange[0], YearMonthDay)) {
-                inRange = true;
-            }
-            if (selectRange[1] && dateText <= formatDate(selectRange[1], YearMonthDay)) {
-                inRange = true;
+        let inRange = selectRange && selectRange[0] !== null && selectRange[1] !== null ? dateText >= formatDate(selectRange[0], YearMonthDay) && dateText <= formatDate(selectRange[1], YearMonthDay) : false;
+        if (selectRange && selectRange[0] !== null && selectRange[1] !== null) {
+            if (formatDate(selectRange[0], YearMonthDay) === dateText || formatDate(selectRange[1], YearMonthDay) === dateText) {
+                selected = true;
             }
         }
 
         const classString = classNames(`${prefixCls}-cell`, {
             disabled,
-            selected,
+            selected: selected && currentMonth,
             today: dateText === formatDate(new Date(), YearMonthDay),
             "in-range": inRange && currentMonth,
-            "not-current-month": !currentMonth
+            "not-current-month": !currentMonth,
         });
 
         return (

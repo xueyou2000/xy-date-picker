@@ -13,6 +13,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const [inputValue, setInputValue] = useState<string>(isDateRange(valueProps, props.showTime, separator) ? valueProps : "");
     // 记录最后一次输入正确的时间字符串
     const lastRef = useRef(inputValue);
+    const lastPickerDate = useRef<Date>(null);
     const dateRange = isDateRange(inputValue, props.showTime, separator) || !inputValue ? inputValue : lastRef.current;
     const [selectRange, setSelectRange] = useState<[Date, Date]>(getSelectRange());
     const which = props.which ? props.which : selectRange[0] ? selectRange[0] : new Date();
@@ -20,8 +21,9 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const [endWhich, setEndWhich] = useState<Date>(incrementMonth(which));
     const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Day);
 
-    function getSelectRange(): [Date, Date] {
-        return dateRange ? dateRangeParse(dateRange, props.showTime, separator) : [null, null];
+    function getSelectRange(range?: string): [Date, Date] {
+        const rangeStr = range || dateRange;
+        return rangeStr ? dateRangeParse(rangeStr, props.showTime, separator) : [null, null];
     }
 
     // 受控时候由外部更新输入框的值
@@ -35,6 +37,13 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     function changeValue(v: string) {
         const val = isDateRange(v, props.showTime, separator) || !v ? v : lastRef.current;
         lastRef.current = val;
+
+        // 切换面板所处日期为上一次选择的
+        if (val) {
+            const range = getSelectRange(val);
+            setStartWhich(range[0]);
+            setEndWhich(range[1]);
+        }
 
         if (!isControll) {
             setInputValue(val);
@@ -61,10 +70,15 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     }
 
     function pickerHandle(d: Date) {
-        if (selectRange[1] === null) {
-            setSelectRange([selectRange[0], d]);
-        } else if (selectRange[0] === null && selectRange[1] === null) {
+        if (lastPickerDate.current === null) {
+            lastPickerDate.current = d;
             setSelectRange([d, null]);
+        } else if (selectRange[0] !== null && selectRange[1] !== null && lastPickerDate.current) {
+            lastPickerDate.current = null;
+            changeValue(formate(selectRange));
+            if (props.onConfirm) {
+                props.onConfirm();
+            }
         }
     }
 
@@ -74,11 +88,11 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     }
 
     function dayMouseEnter(d: Date) {
-        if (selectRange[0] !== null) {
-            // setSelectRange([selectRange[0], d]);
-            changeValue(formate([selectRange[0], d]));
-            if (props.onConfirm) {
-                props.onConfirm();
+        if (lastPickerDate.current !== null) {
+            if (d < lastPickerDate.current) {
+                setSelectRange([d, lastPickerDate.current]);
+            } else {
+                setSelectRange([lastPickerDate.current, d]);
             }
         }
     }
@@ -119,13 +133,12 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
             </div>
             <div className={`${prefixCls}__inner`}>
                 <div className={`${prefixCls}__content_left`}>
-                    <div className={`${prefixCls}__content_header`}>开始时间</div>
                     <DatePickerCombobox
                         {...rest}
                         value={selectRange[0]}
                         onDayMouseEnter={dayMouseEnter}
                         selectRange={selectRange}
-                        onPicker={pickerHandle}
+                        onChange={pickerHandle}
                         which={startWhich}
                         onWhichChange={startWhichHandle}
                         selectionMode={selectionMode}
@@ -133,13 +146,12 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
                     />
                 </div>
                 <div className={`${prefixCls}__content_right`}>
-                    <div className={`${prefixCls}__content_header`}>结束时间</div>
                     <DatePickerCombobox
                         {...rest}
                         value={selectRange[1]}
                         onDayMouseEnter={dayMouseEnter}
                         selectRange={selectRange}
-                        onPicker={pickerHandle}
+                        onChange={pickerHandle}
                         which={endWhich}
                         onWhichChange={endWhichHandle}
                         selectionMode={selectionMode}
