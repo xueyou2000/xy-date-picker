@@ -82,7 +82,7 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
     }
 
     return (
-        <Trigger prefixCls={prefixCls} onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
+        <Trigger prefixCls={prefixCls} className="a" onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
             <Input
                 ref={ref}
                 className={className}

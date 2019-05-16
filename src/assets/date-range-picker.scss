@@ -1,5 +1,10 @@
 $DateRangePicker: "xy-date-range-picker-panel";
 $PickerCombobox: "xy-date-picker-combobox";
+$DateRangePickerTrigger: "date-range-picker-trigger";
+
+.#{$DateRangePickerTrigger} {
+    width: 175px;
+}
 
 .#{$DateRangePicker} {
     position: relative;
@@ -12,6 +17,25 @@ $PickerCombobox: "xy-date-picker-combobox";
     border-radius: 4px;
     outline: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    width: 557px;
+
+    &.hide-start-arrow {
+        .#{$DateRangePicker}__content_left {
+            .#{$PickerCombobox}-year-next,
+            .#{$PickerCombobox}-month-next {
+                display: none;
+            }
+        }
+    }
+
+    &.hide-end-arrow {
+        .#{$DateRangePicker}__content_right {
+            .#{$PickerCombobox}-year-prev,
+            .#{$PickerCombobox}-month-prev {
+                display: none;
+            }
+        }
+    }
 
     .#{$PickerCombobox} {
         width: 100%;
@@ -52,4 +76,97 @@ $PickerCombobox: "xy-date-picker-combobox";
 }
 .#{$DateRangePicker}__content_left {
     border-right: 1px solid #e9eaec;
+}
+
+.#{$DateRangePicker}-footer {
+    padding: 0 12px;
+    line-height: 38px;
+    border-top: 1px solid #e8e8e8;
+    box-sizing: border-box;
+}
+
+.#{$DateRangePicker}-footer-btns {
+    display: block;
+    text-align: center;
+
+    .today-btn {
+        // display: block;
+        // text-align: center;
+        // margin: 0;
+        color: #1890ff;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: #40a9ff;
+        }
+    }
+
+    .time-picker-btn {
+        color: #1890ff;
+        text-decoration: none;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 8px;
+
+        &:hover {
+            color: #40a9ff;
+        }
+
+        &.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+    }
+
+    .#{$DateRangePicker}-ok-btn {
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        border: 1px solid transparent;
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        user-select: none;
+        touch-action: manipulation;
+        height: 32px;
+        padding: 0 15px;
+        color: #fff;
+        background-color: #1890ff;
+        border-color: #1890ff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+        height: 24px;
+        padding: 0 7px;
+        font-size: 14px;
+        border-radius: 4px;
+        line-height: 22px;
+
+        &:hover {
+            color: #fff;
+            background-color: #40a9ff;
+            border-color: #40a9ff;
+        }
+    }
+}
+.show-time {
+    .#{$DateRangePicker}-footer-btns {
+        text-align: right;
+
+        .today-btn {
+            float: left;
+            margin: 0;
+            text-align: center;
+            color: #1890ff;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                color: #40a9ff;
+            }
+        }
+    }
 }

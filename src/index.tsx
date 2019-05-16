@@ -8,5 +8,6 @@ import DatePicker from "./DatePicker";
 import YearMonthPickerPanel from "./YearMonthPickerPanel";
 import YearMonthPicker from "./YearMonthPicker";
 import DateRangePickerPanel from "./DateRangePickerPanel";
+import DateRangePicker from "./DateRangePicker";
 
-export { YearMonthPicker, DatePicker, YearPicker, MonthPicker, CalendarPicker, DatePickerCombobox, DatePickerPanel, SelectionMode, YearMonthPickerPanel, DateRangePickerPanel };
+export { YearMonthPicker, DatePicker, YearPicker, MonthPicker, CalendarPicker, DatePickerCombobox, DatePickerPanel, SelectionMode, YearMonthPickerPanel, DateRangePickerPanel, DateRangePicker };

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { DefineDefaultValue, useControll } from "utils-hooks";
-import { isDateRange, dateRangeSplit, isDateISO, isDateFormat, formatDate, dateParse, isDate, dateRangeParse, incrementMonth, decreaseMonth } from "./date";
+import { isDateRange, dateRangeSplit, isDateISO, isDateFormat, formatDate, dateParse, isDate, dateRangeParse, incrementMonth, decreaseMonth, timeParse } from "./date";
 import { DateRangePickerPanelProps } from "./interface";
 import { YearMonthDay, YearMonth } from "./CalendarPicker";
 import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
@@ -18,11 +18,19 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const [selectRange, setSelectRange] = useState<[Date, Date]>(getSelectRange());
     const which = props.which ? props.which : selectRange[0] ? selectRange[0] : new Date();
     const [startWhich, setStartWhich] = useState<Date>(which);
-    const [endWhich, setEndWhich] = useState<Date>(incrementMonth(which));
+    const [endWhich, setEndWhich] = useState<Date>(selectRange[1] ? selectRange[1] : incrementMonth(startWhich));
     const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Day);
+    const classString = classNames(prefixCls, className, {
+        "hide-start-arrow": incrementMonth(startWhich) >= endWhich,
+        "hide-end-arrow": decreaseMonth(endWhich) <= startWhich,
+        "show-time": props.showTime
+    });
+    const selected = selectRange[0] !== null && selectRange[1] !== null;
+    const startTime = useRef<string>(selectRange[0] !== null ? formatDate(selectRange[0], "HH:mm:ss") : null);
+    const endTime = useRef<string>(selectRange[1] !== null ? formatDate(selectRange[1], "HH:mm:ss") : null);
 
     function getSelectRange(range?: string): [Date, Date] {
-        const rangeStr = range || dateRange;
+        const rangeStr = range === undefined ? dateRange : range;
         return rangeStr ? dateRangeParse(rangeStr, props.showTime, separator) : [null, null];
     }
 
@@ -30,7 +38,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     useEffect(() => {
         if (isControll) {
             setInputValue(props.value || "");
-            setSelectRange(getSelectRange());
+            setSelectRange(getSelectRange(props.value));
         }
     }, [isControll ? props.value : 1]);
 
@@ -39,13 +47,14 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
         lastRef.current = val;
 
         // 切换面板所处日期为上一次选择的
+        const range = getSelectRange(val);
         if (val) {
-            const range = getSelectRange(val);
             setStartWhich(range[0]);
-            setEndWhich(range[1]);
+            setEndWhich(formatDate(range[1], YearMonth) <= formatDate(range[0], YearMonth) ? incrementMonth(range[0]) : range[1]);
         }
 
         if (!isControll) {
+            setSelectRange(range);
             setInputValue(val);
         }
         if (onChange) {
@@ -71,9 +80,14 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
 
     function pickerHandle(d: Date) {
         if (lastPickerDate.current === null) {
+            // 设置时分秒为当前选择的
+            if (startTime.current) {
+                d = timeParse(startTime.current, d);
+            }
             lastPickerDate.current = d;
             setSelectRange([d, null]);
-        } else if (selectRange[0] !== null && selectRange[1] !== null && lastPickerDate.current) {
+        } else if (selected && lastPickerDate.current) {
+            // const range: [Date, Date] = formatDate(lastPickerDate.current, YearMonthDay) < formatDate(d, YearMonthDay) ? [lastPickerDate.current, d] : [d, lastPickerDate.current];
             lastPickerDate.current = null;
             changeValue(formate(selectRange));
             if (props.onConfirm) {
@@ -90,22 +104,79 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     function dayMouseEnter(d: Date) {
         if (lastPickerDate.current !== null) {
             if (d < lastPickerDate.current) {
+                // 交换时分秒部分
+                if (startTime.current) {
+                    d = timeParse(startTime.current, d);
+                } else {
+                    d = timeParse("00:00:00", d);
+                }
+
+                if (endTime.current) {
+                    lastPickerDate.current = timeParse(endTime.current, lastPickerDate.current);
+                } else {
+                    lastPickerDate.current = timeParse("00:00:00", lastPickerDate.current);
+                }
                 setSelectRange([d, lastPickerDate.current]);
             } else {
+                // 设置时分秒为当前选择的
+                if (endTime.current) {
+                    d = timeParse(endTime.current, d);
+                } else {
+                    d = timeParse("00:00:00", d);
+                }
                 setSelectRange([lastPickerDate.current, d]);
             }
         }
     }
 
     function startWhichHandle(d: Date) {
-        if (formatDate(incrementMonth(d), YearMonth) < formatDate(incrementMonth(endWhich), YearMonth)) {
+        if (formatDate(d, YearMonth) < formatDate(endWhich, YearMonth)) {
             setStartWhich(d);
+        } else {
+            setStartWhich(decreaseMonth(endWhich));
         }
     }
 
     function endWhichHandle(d: Date) {
-        if (formatDate(decreaseMonth(d), YearMonth) > formatDate(incrementMonth(startWhich), YearMonth)) {
+        if (formatDate(d, YearMonth) > formatDate(startWhich, YearMonth)) {
             setEndWhich(d);
+        } else {
+            setEndWhich(incrementMonth(startWhich));
+        }
+    }
+
+    function startTimePickerHandle(time: string, date: Date) {
+        startTime.current = time;
+        let end = selectRange[1];
+        if (endTime.current) {
+            end = timeParse(endTime.current, end);
+        }
+        changeValue(`${formatDate(date)}${separator}${formatDate(end)}`);
+    }
+
+    function endTimePickerHandle(time: string, date: Date) {
+        endTime.current = time;
+        let start = selectRange[0];
+        if (startTime.current) {
+            start = timeParse(startTime.current, start);
+        }
+        changeValue(`${formatDate(selectRange[0])}${separator}${formatDate(date)}`);
+    }
+
+    function toggleMode() {
+        if (!selected) {
+            return;
+        }
+        if (selectionMode === SelectionMode.Time) {
+            setSelectionMode(SelectionMode.Day);
+        } else {
+            setSelectionMode(SelectionMode.Time);
+        }
+    }
+
+    function confirmHandle() {
+        if (props.onConfirm) {
+            props.onConfirm();
         }
     }
 
@@ -126,8 +197,25 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
         }
     }, []);
 
+    function renderFooter() {
+        if (props.showTime) {
+            return (
+                <React.Fragment>
+                    <a className={classNames("time-picker-btn", { disabled: !selected || lastPickerDate.current !== null })} onClick={toggleMode}>
+                        {selectionMode === SelectionMode.Time ? "选择日期" : "选择时间"}
+                    </a>
+                    <a className={`${prefixCls}-ok-btn`} onClick={confirmHandle}>
+                        确定
+                    </a>
+                </React.Fragment>
+            );
+        } else {
+            return null;
+        }
+    }
+
     return (
-        <div className={classNames(prefixCls, className)} style={style}>
+        <div className={classString} style={style}>
             <div className={`${prefixCls}-input-wrap`}>
                 <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
             </div>
@@ -135,10 +223,12 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
                 <div className={`${prefixCls}__content_left`}>
                     <DatePickerCombobox
                         {...rest}
+                        silentTimePicker={true}
                         value={selectRange[0]}
                         onDayMouseEnter={dayMouseEnter}
                         selectRange={selectRange}
                         onChange={pickerHandle}
+                        onTimePicker={startTimePickerHandle}
                         which={startWhich}
                         onWhichChange={startWhichHandle}
                         selectionMode={selectionMode}
@@ -148,16 +238,21 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
                 <div className={`${prefixCls}__content_right`}>
                     <DatePickerCombobox
                         {...rest}
+                        silentTimePicker={true}
                         value={selectRange[1]}
                         onDayMouseEnter={dayMouseEnter}
                         selectRange={selectRange}
                         onChange={pickerHandle}
+                        onTimePicker={endTimePickerHandle}
                         which={endWhich}
                         onWhichChange={endWhichHandle}
                         selectionMode={selectionMode}
                         onSelectionModeChange={setSelectionMode}
                     />
                 </div>
+            </div>
+            <div className={`${prefixCls}-footer`}>
+                <div className={`${prefixCls}-footer-btns`}>{renderFooter()}</div>
             </div>
         </div>
     );

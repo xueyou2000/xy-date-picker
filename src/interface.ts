@@ -117,6 +117,15 @@ export interface DatePickerComboboxProps extends CalendarPickerProps {
      */
     onDayPicker?: (date: Date) => void;
     /**
+     * 时间选择时间
+     */
+    onTimePicker?: (time: string, date: Date) => void;
+    /**
+     * 选择时间是否不触发onChange事件
+     * @description 默认false
+     */
+    silentTimePicker?: boolean;
+    /**
      * 确定事件, 用于收起面板
      * @description 当选择模式为日模式时， 选择日会触发， 当可以选择时间时候，点击确定按钮触发
      */

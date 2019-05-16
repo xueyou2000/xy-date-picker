@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { DateRangePickerPanel } from "../src";
+import { DateRangePicker } from "../src";
 import "./index.scss";
 
 const date = new Date();
@@ -26,7 +26,7 @@ const shortcuts = [
 export default function() {
     return (
         <div className="date-picker-demo">
-            <DateRangePickerPanel onChange={(v) => console.log(v)} />
+            <DateRangePicker showTime={true} onChange={(v) => console.log(v)} />
         </div>
     );
 }

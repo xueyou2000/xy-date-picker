@@ -82,8 +82,8 @@ export function CalendarPicker(props: CalendarPickerProps) {
             disabled,
             selected: selected && currentMonth,
             today: dateText === formatDate(new Date(), YearMonthDay),
-            "in-range": inRange && currentMonth,
-            "not-current-month": !currentMonth,
+            "in-range": !selected && inRange && currentMonth,
+            "not-current-month": !currentMonth
         });
 
         return (

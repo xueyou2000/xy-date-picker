@@ -18,7 +18,23 @@ export enum SelectionMode {
 }
 
 export function DatePickerCombobox(props: DatePickerComboboxProps) {
-    const { prefixCls = "xy-date-picker-combobox", className, style, onPicker, showTime = false, onSelectionModeChange, onWhichChange, onYearPicker, onMonthPicker, onDayPicker, onChange, onConfirm, ...rest } = props;
+    const {
+        prefixCls = "xy-date-picker-combobox",
+        className,
+        style,
+        onPicker,
+        showTime = false,
+        onSelectionModeChange,
+        onWhichChange,
+        onYearPicker,
+        onMonthPicker,
+        onDayPicker,
+        onTimePicker,
+        onChange,
+        onConfirm,
+        silentTimePicker = false,
+        ...rest
+    } = props;
     const [value, setValue, isValueControll] = useControll<Date>(props, "value", "defaultValue");
     const [which, setWhich, isControll] = useControll(props, "which", "defaultWhich", value || new Date());
     const [selectionMode, setSelectionMode, isSelectionModeControll] = useControll<SelectionMode>(props, "selectionMode", "defaultSelectionMode", SelectionMode.Day);
@@ -124,7 +140,13 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
     }
 
     function timeChange(timeStr: string) {
-        changeValue(timeParse(timeStr, new Date(value || which)));
+        const d = timeParse(timeStr, new Date(value || which));
+        if (silentTimePicker === false) {
+            changeValue(d);
+        }
+        if (onTimePicker) {
+            onTimePicker(timeStr, d);
+        }
     }
 
     function confirmHandle() {
