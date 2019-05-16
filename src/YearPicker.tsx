@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { setYear } from "./date";
+import { setYear, formatDate } from "./date";
 import { YearPickerProps } from "./interface";
 import { nearYears } from "./Utils";
 
@@ -8,6 +8,8 @@ import { nearYears } from "./Utils";
 export const RowsNum: number = 4;
 // 列数
 export const ColNum: number = 3;
+
+const Year: string = "yyyy";
 
 export function YearPicker(props: YearPickerProps) {
     const { prefixCls = "xy-year-picker", className, value, onPicker, style, min, max } = props;
@@ -43,7 +45,7 @@ export function YearPicker(props: YearPickerProps) {
      */
     function createYearCell(year: number, notNowCentury = false) {
         const d = setYear(which, year);
-        const disabled = (min && d < min) || (max && d > max);
+        const disabled = (min && String(year) < formatDate(min, Year)) || (max && String(year) > formatDate(max, Year));
         const selected = value && value.getFullYear() === year;
         const classString = classNames(`${prefixCls}-cell`, { disabled, selected, "not-now-century": notNowCentury });
 

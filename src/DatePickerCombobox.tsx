@@ -190,7 +190,7 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
             <div className={`${prefixCls}-header`}>
                 <a className={`${prefixCls}-decade-btn ${prefixCls}-year-prev`} onClick={prevBtnHadnle} />
                 <a className={`${prefixCls}-decade-btn ${prefixCls}-month-prev`} onClick={prevMonth} />
-                <a className={`${prefixCls}-title`}>{title}</a>
+                <span className={`${prefixCls}-title`}>{title}</span>
                 <a className={`${prefixCls}-decade-btn ${prefixCls}-month-next`} onClick={nextMonth} />
                 <a className={`${prefixCls}-decade-btn ${prefixCls}-year-next`} onClick={nextBtnHadnle} />
             </div>

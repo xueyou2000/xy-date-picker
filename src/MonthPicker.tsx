@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import React from "react";
-import { setMonth } from "./date";
+import { setMonth, formatDate } from "./date";
 import { YearPickerProps } from "./interface";
 import { DatePickerLocal } from "./Locale";
 import { ColNum, RowsNum } from "./YearPicker";
+import { YearMonth } from "./CalendarPicker";
 
 export function MonthPicker(props: YearPickerProps) {
     const { prefixCls = "xy-month-picker", className, value, onPicker, style, min, max } = props;
@@ -37,7 +38,7 @@ export function MonthPicker(props: YearPickerProps) {
      */
     function createMonthCell(month: number) {
         const d = setMonth(which, month);
-        const disabled = (min && d < min) || (max && d > max);
+        const disabled = (min && formatDate(d, YearMonth) < formatDate(min, YearMonth)) || (max && formatDate(d, YearMonth) > formatDate(max, YearMonth));
         const selected = value && value.getMonth() === month;
         const classString = classNames(`${prefixCls}-cell`, { disabled, selected });
 
