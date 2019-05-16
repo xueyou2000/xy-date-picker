@@ -1,7 +1,37 @@
 [
     {
-        "name": "Simple",
-        "title": "简答例子",
-        "desc": "简答例子的一段描述。"
+        "name": "YearMonthPicker",
+        "title": "年月选择器",
+        "desc": "选择后，得到 2019年10月 这种字符串。"
+    },
+    {
+        "name": "DatePicker",
+        "title": "日期选择器",
+        "desc": "可以传入 2019-10-19 日期字符串"
+    },
+    {
+        "name": "ShowTime",
+        "title": "显示时分秒",
+        "desc": "设置 showTime 属性来支持选择时分秒。"
+    },
+    {
+        "name": "Shortcuts",
+        "title": "快捷方式",
+        "desc": "再右侧列出自定义的快捷方式, 方便快速选择一些日期。"
+    },
+    {
+        "name": "DatePickerRange",
+        "title": "日期范围选择",
+        "desc": "选择日期区间。"
+    },
+    {
+        "name": "DatePickerRangeByTime",
+        "title": "日期范围选择(带时间)",
+        "desc": "选择日期区间, 并且能够选择时分秒。"
+    },
+    {
+        "name": "Test",
+        "title": "测试",
+        "desc": "测试"
     }
 ]

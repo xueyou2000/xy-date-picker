@@ -10,13 +10,13 @@
 
 # xy-date-picker
 
-基于`React Hooks` + `typescript`的基础组件
+日期选择器
 
 ## 安装
 
 ```bash
 # yarn
-yarn add xy-date-picker
+yarn add xy-date-picker xy-time-picker classnames utils-hooks utils-dom @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome xy-trigger xy-input
 ```
 
 ## 使用例子
@@ -24,23 +24,66 @@ yarn add xy-date-picker
 ```ts
 import React from "react";
 import ReactDOM from "react-dom";
-import XyDatePicker from "xy-date-picker";
-ReactDOM.render(<XyDatePicker />, container);
+import { DatePicker, DateRangePicker, YearMonthPicker } from "xy-date-picker";
+ReactDOM.render(<DatePicker />, container);
 ```
 
 ## API
 
-| 属性     | 说明                                                               | 类型           | 默认值    |
-| -------- | ------------------------------------------------------------------ | -------------- | --------- |
-| ghost    | 幽灵属性，使按钮背景透明                                           | boolean        | false     |
-| long     | 是否长按钮                                                         | boolean        | false     |
-| icon     | 设置按钮的图标类型                                                 | IconDefinition | -         |
-| loading  | 设置按钮载入状态                                                   | boolean        | `false`   |
-| disabled | 按钮失效状态                                                       | boolean        | `false`   |
-| shape    | 设置按钮形状，可选值为 `circle` 或者不设                           | string         | -         |
-| size     | 设置按钮大小，可选值为 `small` `large` 或者不设                    | string         | `default` |
-| type     | 设置按钮类型，可选值为 `primary` `dashed` `text` `danger` 或者不设 | string         | -         |
-| onClick  | `click` 事件的 handler                                             | function       | -         |
+### DatePicker
+
+| 属性                  | 说明                             | 类型                               | 默认值            |
+| --------------------- | -------------------------------- | ---------------------------------- | ----------------- |
+| value                 | 年月日时分秒字符串               | string                             | -                 |
+| defaultValue          | 年月日时分秒字符串               | string                             | -                 |
+| onChange              | onChange 事件                    | (value: string) => void            | -                 |
+| shortcuts             | 快捷方式                         | DatePickerShortcuts[]              | -                 |
+| disabled              | 是否禁用                         | boolean                            | `false`           |
+| showTime              | 是否可以选择时间                 | boolean                            | `false`           |
+| which                 | 面板所处日期                     | Date                               | 今天              |
+| onWhichChange         | 面板所处日期更改                 | (date: Date) => void               | -                 |
+| min                   | 最小日期, 小于此时间不可选       | Date                               | -                 |
+| max                   | 最大日期, 大于此时间不可选       | Date                               | -                 |
+| selectionMode         | 面板模式                         | SelectionMode                      | SelectionMode.Day |
+| defaultSelectionMode  | 默认面板模式                     | SelectionMode                      | SelectionMode.Day |
+| onSelectionModeChange | 面板模式改变事件                 | (mode: SelectionMode) => void      | -                 |
+| onYearPicker          | 年选择事件                       | (date: Date) => void               | -                 |
+| onMonthPicker         | 月选择事件                       | (date: Date) => void               | -                 |
+| onDayPicker           | 日选择事件                       | (date: Date) => void               | -                 |
+| onTimePicker          | 时间选择事件                     | (time: string, date: Date) => void | -                 |
+| silentTimePicker      | 选择时间是否不触发 onChange 事件 | boolean                            | `false`           |
+
+### YearMonthPicker
+
+| 属性          | 说明                       | 类型                    | 默认值  |
+| ------------- | -------------------------- | ----------------------- | ------- |
+| value         | 年月日时分秒字符串         | string                  | -       |
+| defaultValue  | 年月日时分秒字符串         | string                  | -       |
+| onChange      | onChange 事件              | (value: string) => void | -       |
+| disabled      | 是否禁用                   | boolean                 | `false` |
+| showTime      | 是否可以选择时间           | boolean                 | `false` |
+| which         | 面板所处日期               | Date                    | 今天    |
+| onWhichChange | 面板所处日期更改           | (date: Date) => void    | -       |
+| min           | 最小日期, 小于此时间不可选 | Date                    | -       |
+| max           | 最大日期, 大于此时间不可选 | Date                    | -       |
+
+### DateRangePicker
+
+| 属性          | 说明                       | 类型                               | 默认值  |
+| ------------- | -------------------------- | ---------------------------------- | ------- |
+| value         | 年月日时分秒字符串         | string                             | -       |
+| defaultValue  | 年月日时分秒字符串         | string                             | -       |
+| onChange      | onChange 事件              | (value: string) => void            | -       |
+| disabled      | 是否禁用                   | boolean                            | `false` |
+| showTime      | 是否可以选择时间           | boolean                            | `false` |
+| which         | 面板所处日期               | Date                               | 今天    |
+| onWhichChange | 面板所处日期更改           | (date: Date) => void               | -       |
+| min           | 最小日期, 小于此时间不可选 | Date                               | -       |
+| max           | 最大日期, 大于此时间不可选 | Date                               | -       |
+| onYearPicker  | 年选择事件                 | (date: Date) => void               | -       |
+| onMonthPicker | 月选择事件                 | (date: Date) => void               | -       |
+| onDayPicker   | 日选择事件                 | (date: Date) => void               | -       |
+| onTimePicker  | 时间选择事件               | (time: string, date: Date) => void | -       |
 
 ## 开发
 

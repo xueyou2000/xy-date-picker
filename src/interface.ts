@@ -117,7 +117,7 @@ export interface DatePickerComboboxProps extends CalendarPickerProps {
      */
     onDayPicker?: (date: Date) => void;
     /**
-     * 时间选择时间
+     * 时间选择事件
      */
     onTimePicker?: (time: string, date: Date) => void;
     /**

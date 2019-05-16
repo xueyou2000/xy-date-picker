@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import React from "react";
-import { YearPickerProps } from "./interface";
 import { setMonth } from "./date";
-import { ColNum, RowsNum } from "./YearPicker";
+import { YearPickerProps } from "./interface";
 import { DatePickerLocal } from "./Locale";
+import { ColNum, RowsNum } from "./YearPicker";
 
 export function MonthPicker(props: YearPickerProps) {
     const { prefixCls = "xy-month-picker", className, value, onPicker, style, min, max } = props;

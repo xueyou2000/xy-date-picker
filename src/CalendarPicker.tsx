@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { formatDate, setMonth, setYearMonthDay, daysInMonth, decreaseMonth, incrementMonth } from "./date";
+import { decreaseMonth, formatDate, incrementMonth, setYearMonthDay } from "./date";
 import { CalendarPickerProps } from "./interface";
 import { DatePickerLocal } from "./Locale";
 import { getDates } from "./Utils";

@@ -1,13 +1,13 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { DefineDefaultValue, useControll } from "utils-hooks";
-import { isDateRange, dateRangeSplit, isDateISO, isDateFormat, formatDate, dateParse, isDate, dateRangeParse, incrementMonth, decreaseMonth, timeParse } from "./date";
-import { DateRangePickerPanelProps } from "./interface";
-import { YearMonthDay, YearMonth } from "./CalendarPicker";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { DefineDefaultValue } from "utils-hooks";
+import { YearMonth, YearMonthDay } from "./CalendarPicker";
+import { dateRangeParse, decreaseMonth, formatDate, incrementMonth, isDateRange, timeParse } from "./date";
 import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
+import { DateRangePickerPanelProps } from "./interface";
 
 export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
-    const { prefixCls = "xy-date-range-picker-panel", className, style, value, separator = " - ", defaultValue, placeholder = "请选择日期范围", inputRef, onFocus, onBlur, onKeyDown, onChange, disabled, ...rest } = props;
+    const { prefixCls = "xy-date-range-picker-panel", className, style, value, separator = " - ", defaultValue, placeholder = "请选择日期范围", inputRef, onFocus, onBlur, onKeyDown, onChange, onConfirm, disabled, ...rest } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState<string>(isDateRange(valueProps, props.showTime, separator) ? valueProps : "");
@@ -20,9 +20,10 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const [startWhich, setStartWhich] = useState<Date>(which);
     const [endWhich, setEndWhich] = useState<Date>(selectRange[1] ? selectRange[1] : incrementMonth(startWhich));
     const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Day);
+
     const classString = classNames(prefixCls, className, {
-        "hide-start-arrow": incrementMonth(startWhich) >= endWhich,
-        "hide-end-arrow": decreaseMonth(endWhich) <= startWhich,
+        "hide-start-arrow": formatDate(incrementMonth(startWhich), YearMonth) >= formatDate(endWhich, YearMonth),
+        "hide-end-arrow": formatDate(decreaseMonth(endWhich), YearMonth) <= formatDate(startWhich, YearMonth),
         "show-time": props.showTime
     });
     const selected = selectRange[0] !== null && selectRange[1] !== null;
@@ -48,7 +49,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
 
         // 切换面板所处日期为上一次选择的
         const range = getSelectRange(val);
-        if (val) {
+        if (range[0] !== null && range[1] !== null) {
             setStartWhich(range[0]);
             setEndWhich(formatDate(range[1], YearMonth) <= formatDate(range[0], YearMonth) ? incrementMonth(range[0]) : range[1]);
         }
@@ -90,9 +91,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
             // const range: [Date, Date] = formatDate(lastPickerDate.current, YearMonthDay) < formatDate(d, YearMonthDay) ? [lastPickerDate.current, d] : [d, lastPickerDate.current];
             lastPickerDate.current = null;
             changeValue(formate(selectRange));
-            if (props.onConfirm) {
-                props.onConfirm();
-            }
+            confirmHandle();
         }
     }
 
@@ -175,8 +174,8 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     }
 
     function confirmHandle() {
-        if (props.onConfirm) {
-            props.onConfirm();
+        if (onConfirm) {
+            onConfirm();
         }
     }
 
@@ -185,9 +184,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
             // Enter 确定
             case 13:
                 blurHandle(event as any);
-                if (props.onConfirm) {
-                    props.onConfirm();
-                }
+                confirmHandle();
                 event.stopPropagation();
                 break;
         }

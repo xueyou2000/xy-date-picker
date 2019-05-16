@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
-import { YearPickerProps } from "./interface";
 import { setYear } from "./date";
+import { YearPickerProps } from "./interface";
 import { nearYears } from "./Utils";
 
 // 行数
