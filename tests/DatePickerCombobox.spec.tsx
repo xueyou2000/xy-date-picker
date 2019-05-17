@@ -2,6 +2,7 @@ import React from "react";
 import { render, fireEvent } from "react-testing-library";
 import { DatePickerCombobox, SelectionMode } from "../src";
 import { formatDate } from "../src/date";
+import { YearMonth } from "../src/CalendarPicker";
 
 describe("DatePickerCombobox", () => {
     test("switch selectionMode will change title", () => {
@@ -55,16 +56,62 @@ describe("DatePickerCombobox", () => {
     test("show time", () => {
         const fn = jest.fn();
         const onChange = jest.fn();
-        const wrapper = render(<DatePickerCombobox defaultWhich={new Date(2019, 5, 1)} onTimePicker={fn} onChange={onChange} />);
+        const wrapper = render(<DatePickerCombobox showTime={true} defaultWhich={new Date(2019, 5, 1)} onTimePicker={fn} onChange={onChange} />);
 
         // 直接点击日，则默认时分秒用0填充
         fireEvent.click(wrapper.getByText("15"));
         expect(onChange.mock.calls.length).toBe(1);
-        expect(onChange.mock.calls[0][0]).toBe("2019-05-15 00:00:00");
+        expect(formatDate(onChange.mock.calls[0][0])).toBe("2019-06-15 00:00:00");
 
         // 点击 选择时间 按钮
         fireEvent.click(wrapper.getByText("选择时间"));
-        // wrapper.container.querySelector('.xy-picker-combobox-show-second');
-        // expect(wrapper.getByText(''))
+
+        // 选择小时
+        const hours = wrapper.container.querySelectorAll(".xy-picker-number:first-child li");
+        fireEvent.click(hours[11]);
+        expect(onChange.mock.calls.length).toBe(2);
+        expect(formatDate(onChange.mock.calls[1][0])).toBe("2019-06-15 11:00:00");
+
+        // 选择分钟
+        const minutes = wrapper.container.querySelectorAll(".xy-picker-number:nth-child(2) li");
+        fireEvent.click(minutes[8]);
+        expect(onChange.mock.calls.length).toBe(3);
+        expect(formatDate(onChange.mock.calls[2][0])).toBe("2019-06-15 11:08:00");
+
+        // 选择秒
+        const seconds = wrapper.container.querySelectorAll(".xy-picker-number:last-child li");
+        fireEvent.click(seconds[59]);
+        expect(onChange.mock.calls.length).toBe(4);
+        expect(formatDate(onChange.mock.calls[3][0])).toBe("2019-06-15 11:08:59");
+    });
+
+    test("switch arrow", () => {
+        const whichChange = jest.fn();
+        const wrapper = render(<DatePickerCombobox defaultWhich={new Date(2019, 4, 1)} onWhichChange={whichChange} />);
+
+        const prevYearArrow = wrapper.container.querySelector(".xy-date-picker-combobox-year-prev");
+        const nextYearArrow = wrapper.container.querySelector(".xy-date-picker-combobox-year-next");
+        const prevMonthArrow = wrapper.container.querySelector(".xy-date-picker-combobox-month-prev");
+        const nextMonthArrow = wrapper.container.querySelector(".xy-date-picker-combobox-month-next");
+
+        // 点击上一年
+        fireEvent.click(prevYearArrow);
+        expect(whichChange.mock.calls.length).toBe(1);
+        expect(formatDate(whichChange.mock.calls[0][0], YearMonth)).toBe("2018-05");
+
+        // 点击下一年
+        fireEvent.click(nextYearArrow);
+        expect(whichChange.mock.calls.length).toBe(2);
+        expect(formatDate(whichChange.mock.calls[1][0], YearMonth)).toBe("2019-05");
+
+        // 点击上一月
+        fireEvent.click(prevMonthArrow);
+        expect(whichChange.mock.calls.length).toBe(3);
+        expect(formatDate(whichChange.mock.calls[2][0], YearMonth)).toBe("2019-04");
+
+        // 点击下一月
+        fireEvent.click(nextMonthArrow);
+        expect(whichChange.mock.calls.length).toBe(4);
+        expect(formatDate(whichChange.mock.calls[3][0], YearMonth)).toBe("2019-05");
     });
 });

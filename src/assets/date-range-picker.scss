@@ -1,5 +1,9 @@
+$DatePicker: "xy-date-picker";
+
 $DateRangePicker: "xy-date-range-picker-panel";
 $PickerCombobox: "xy-date-picker-combobox";
+
+$DateRange: "date-range-picker";
 $DateRangePickerTrigger: "date-range-picker-trigger";
 
 .#{$DateRangePickerTrigger} {
@@ -76,6 +80,16 @@ $DateRangePickerTrigger: "date-range-picker-trigger";
 }
 .#{$DateRangePicker}__content_left {
     border-right: 1px solid #e9eaec;
+}
+
+.#{$DatePicker}.#{$DatePicker}-topLeft {
+    .#{$DateRangePicker} {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .#{$DateRangePicker}-input-wrap {
+        border-top: 1px solid #e8e8e8;
+    }
 }
 
 .#{$DateRangePicker}-footer {

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { YearMonthPicker } from "../src";
 import "./index.scss";
 
 export default function() {
     return (
         <div className="date-picker-demo">
-            <YearMonthPicker />
+            <YearMonthPicker onChange={(v) => console.log(v)} />
         </div>
     );
 }

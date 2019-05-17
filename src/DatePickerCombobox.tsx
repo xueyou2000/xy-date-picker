@@ -72,7 +72,7 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
         if (selectionMode === SelectionMode.Month) {
             changeWhich(setYear(which, which.getFullYear() - 1));
         } else {
-            changeWhich(setYear(which, which.getFullYear() - 10));
+            changeWhich(setYear(which, which.getFullYear() - 1));
         }
     }
 
@@ -80,7 +80,7 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
         if (selectionMode === SelectionMode.Month) {
             changeWhich(setYear(which, which.getFullYear() + 1));
         } else {
-            changeWhich(setYear(which, which.getFullYear() + 10));
+            changeWhich(setYear(which, which.getFullYear() + 1));
         }
     }
 

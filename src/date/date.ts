@@ -122,7 +122,7 @@ export function isDate(dateVal: string, showTime = false) {
  */
 export function isDateRange(date: string, showTime = false, separator: string = " - ") {
     const segments = dateRangeSplit(date, separator);
-    return isDate(segments[0], showTime) && isDate(segments[1], showTime);
+    return isDate(segments[0], showTime) && isDate(segments[1], showTime) && segments[0] <= segments[1];
 }
 
 /**

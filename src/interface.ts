@@ -227,11 +227,18 @@ export interface YearMonthPickerPanelProps extends InputGenericProps {
      * 输入框ref
      */
     inputRef?: React.MutableRefObject<any>;
-
     /**
      * 面板所处日期
      */
     which?: Date;
+    /**
+     * 默认所处日期
+     */
+    defaultWhich?: Date;
+    /**
+     * 所处日期更改
+     */
+    onWhichChange?: (date: Date) => void;
     /**
      * 最小日期
      * @description 小于此时间不可选

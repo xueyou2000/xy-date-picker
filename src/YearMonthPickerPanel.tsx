@@ -7,7 +7,7 @@ import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
 import { YearMonthPickerPanelProps } from "./interface";
 
 export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
-    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = "请选择年月", inputRef, onFocus, onBlur, onKeyDown, onChange, disabled, ...rest } = props;
+    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = "请选择年月", inputRef, onFocus, onBlur, onKeyDown, onConfirm, onChange, disabled, ...rest } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState<string>(isYearMonth(valueProps) ? valueProps : "");
@@ -15,6 +15,8 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
     const lastRef = useRef(inputValue);
     const date = isYearMonth(inputValue) || !inputValue ? inputValue : lastRef.current;
     const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Month);
+    const _which = props.which ? props.which : date ? yearMonthParse(date) : new Date();
+    const [which, setwhich] = useState<Date>(_which);
 
     // 受控时候由外部更新输入框的值
     useEffect(() => {
@@ -26,6 +28,10 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
     function changeValue(v: string) {
         const val = isYearMonth(v) || !v ? v : lastRef.current;
         lastRef.current = val;
+
+        if (val) {
+            setwhich(yearMonthParse(val));
+        }
 
         if (!isControll) {
             setInputValue(val);
@@ -47,6 +53,7 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
         let val = event.target.value;
         if (isYearMonth(val)) {
             lastRef.current = val;
+            setwhich(yearMonthParse(val));
         }
         setInputValue(val);
     }
@@ -62,8 +69,8 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
     function datePickerHandle(d: Date) {
         var val = formatDate(d, YearMonth);
         changeValue(val);
-        if (props.onConfirm) {
-            props.onConfirm();
+        if (onConfirm) {
+            onConfirm();
         }
     }
 
@@ -72,8 +79,8 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
             // Enter 确定
             case 13:
                 blurHandle(event as any);
-                if (props.onConfirm) {
-                    props.onConfirm();
+                if (onConfirm) {
+                    onConfirm();
                 }
                 event.stopPropagation();
                 break;
@@ -90,7 +97,7 @@ export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
                 <div className={`${prefixCls}-input-wrap`}>
                     <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
                 </div>
-                <DatePickerCombobox {...rest} onMonthPicker={datePickerHandle} selectionMode={selectionMode} onSelectionModeChange={changeSelectionMode} value={yearMonthParse(date)} />
+                <DatePickerCombobox {...rest} which={which} onWhichChange={setwhich} onMonthPicker={datePickerHandle} selectionMode={selectionMode} onSelectionModeChange={changeSelectionMode} value={yearMonthParse(date)} />
             </div>
         </div>
     );

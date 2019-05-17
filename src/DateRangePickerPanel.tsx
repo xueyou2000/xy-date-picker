@@ -67,6 +67,11 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
         let val = event.target.value;
         if (isDateRange(val, props.showTime, separator)) {
             lastRef.current = val;
+            const range = getSelectRange(val);
+            if (range[0] !== null && range[1] !== null) {
+                setStartWhich(range[0]);
+                setEndWhich(formatDate(range[1], YearMonth) <= formatDate(range[0], YearMonth) ? incrementMonth(range[0]) : range[1]);
+            }
         }
         setInputValue(val);
     }
@@ -216,40 +221,42 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
             <div className={`${prefixCls}-input-wrap`}>
                 <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
             </div>
-            <div className={`${prefixCls}__inner`}>
-                <div className={`${prefixCls}__content_left`}>
-                    <DatePickerCombobox
-                        {...rest}
-                        silentTimePicker={true}
-                        value={selectRange[0]}
-                        onDayMouseEnter={dayMouseEnter}
-                        selectRange={selectRange}
-                        onChange={pickerHandle}
-                        onTimePicker={startTimePickerHandle}
-                        which={startWhich}
-                        onWhichChange={startWhichHandle}
-                        selectionMode={selectionMode}
-                        onSelectionModeChange={setSelectionMode}
-                    />
+            <div>
+                <div className={`${prefixCls}__inner`}>
+                    <div className={`${prefixCls}__content_left`}>
+                        <DatePickerCombobox
+                            {...rest}
+                            silentTimePicker={true}
+                            value={selectRange[0]}
+                            onDayMouseEnter={dayMouseEnter}
+                            selectRange={selectRange}
+                            onChange={pickerHandle}
+                            onTimePicker={startTimePickerHandle}
+                            which={startWhich}
+                            onWhichChange={startWhichHandle}
+                            selectionMode={selectionMode}
+                            onSelectionModeChange={setSelectionMode}
+                        />
+                    </div>
+                    <div className={`${prefixCls}__content_right`}>
+                        <DatePickerCombobox
+                            {...rest}
+                            silentTimePicker={true}
+                            value={selectRange[1]}
+                            onDayMouseEnter={dayMouseEnter}
+                            selectRange={selectRange}
+                            onChange={pickerHandle}
+                            onTimePicker={endTimePickerHandle}
+                            which={endWhich}
+                            onWhichChange={endWhichHandle}
+                            selectionMode={selectionMode}
+                            onSelectionModeChange={setSelectionMode}
+                        />
+                    </div>
                 </div>
-                <div className={`${prefixCls}__content_right`}>
-                    <DatePickerCombobox
-                        {...rest}
-                        silentTimePicker={true}
-                        value={selectRange[1]}
-                        onDayMouseEnter={dayMouseEnter}
-                        selectRange={selectRange}
-                        onChange={pickerHandle}
-                        onTimePicker={endTimePickerHandle}
-                        which={endWhich}
-                        onWhichChange={endWhichHandle}
-                        selectionMode={selectionMode}
-                        onSelectionModeChange={setSelectionMode}
-                    />
+                <div className={`${prefixCls}-footer`}>
+                    <div className={`${prefixCls}-footer-btns`}>{renderFooter()}</div>
                 </div>
-            </div>
-            <div className={`${prefixCls}-footer`}>
-                <div className={`${prefixCls}-footer-btns`}>{renderFooter()}</div>
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
     // 记录最后一次输入正确的时间字符串
     const lastRef = useRef(inputValue);
     const date = isDate(inputValue, props.showTime) || !inputValue ? inputValue : lastRef.current;
+    const [which, setwhich] = useState<Date>(dateParse(date) || new Date());
 
     // 受控时候由外部更新输入框的值
     useEffect(() => {
@@ -25,6 +26,10 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
     function changeValue(v: string) {
         const val = isDate(v, props.showTime) || !v ? v : lastRef.current;
         lastRef.current = val;
+
+        if (val) {
+            setwhich(dateParse(val));
+        }
 
         if (!isControll) {
             setInputValue(val);
@@ -38,6 +43,7 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
         let val = event.target.value;
         if (isDate(val, props.showTime)) {
             lastRef.current = val;
+            setwhich(dateParse(val));
         }
         setInputValue(val);
     }
@@ -101,7 +107,7 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
                 <div className={`${prefixCls}-input-wrap`}>
                     <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
                 </div>
-                <DatePickerCombobox {...rest} value={dateParse(date)} onChange={datePickerHandle} />
+                <DatePickerCombobox {...rest} which={which} onWhichChange={setwhich} value={dateParse(date)} onChange={datePickerHandle} />
             </div>
             {renderShortcuts()}
         </div>
