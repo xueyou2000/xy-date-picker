@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
 import { DatePickerCombobox, SelectionMode } from "../src";
-import { formatDate } from "../src/date";
+import { formatDate } from "utils-dom";
 import { YearMonth } from "../src/CalendarPicker";
 
 describe("DatePickerCombobox", () => {

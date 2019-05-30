@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "react-testing-library";
 import { MonthPicker } from "../src";
 import { DatePickerLocal } from "../src/Locale";
-import { formatDate } from "../src/date";
+import { formatDate } from "utils-dom";
 
 describe("MonthPicker", () => {
     test("render", () => {

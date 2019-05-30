@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { setMonth, formatDate } from "./date";
+import { setMonth, formatDate } from "utils-dom";
 import { YearPickerProps } from "./interface";
 import { DatePickerLocal } from "./Locale";
 import { ColNum, RowsNum } from "./YearPicker";

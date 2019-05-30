@@ -6,7 +6,7 @@ import { DateRangePickerPanelProps } from "./interface";
 
 export const DateRangePicker = React.forwardRef((props: DateRangePickerPanelProps, ref: React.MutableRefObject<any>) => {
     const { placeholder = "请选择日期范围", ...rest } = props;
-    return <DatePicker {...rest} placeholder={placeholder} renderTimePickerPanel={DateRangePickerPanel} />;
+    return <DatePicker {...rest} ref={ref} placeholder={placeholder} renderTimePickerPanel={DateRangePickerPanel} />;
 });
 
 export default React.memo(DateRangePicker);

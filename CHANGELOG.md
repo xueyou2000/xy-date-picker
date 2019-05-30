@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.31 (Thu May 30 2019)
+
+-   剥离`date`工具函数到`utils-dom`外部库中
+
 ## 0.0.3 (Fri May 17 2019)
 
 -   修复`DatePickerRange`反转样式

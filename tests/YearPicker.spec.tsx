@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
 import { YearPicker } from "../src";
-import { formatDate } from "../src/date";
+import { formatDate } from "utils-dom";
 
 describe("YearPicker", () => {
     test("render", () => {

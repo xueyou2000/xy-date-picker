@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "react-testing-library";
 import { DatePickerPanel, SelectionMode } from "../src";
-import { formatDate } from "../src/date";
+import { formatDate } from "utils-dom";
 import { YearMonth, YearMonthDay } from "../src/CalendarPicker";
 
 describe("DatePickerPanel", () => {

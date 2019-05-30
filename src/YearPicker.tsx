@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import { setYear, formatDate } from "./date";
+import { setYear, formatDate } from "utils-dom";
 import { YearPickerProps } from "./interface";
 import { nearYears } from "./Utils";
 
