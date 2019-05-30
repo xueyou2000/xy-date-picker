@@ -28,5 +28,10 @@
         "name": "DatePickerRangeByTime",
         "title": "日期范围选择(带时间)",
         "desc": "选择日期区间, 并且能够选择时分秒。"
+    },
+    {
+        "name": "Limit",
+        "title": "限制时间",
+        "desc": "限制起始选择时间和结束选择时间。"
     }
 ]
