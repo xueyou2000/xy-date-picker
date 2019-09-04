@@ -7,16 +7,33 @@ import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
 import { DateRangePickerPanelProps } from "./interface";
 
 export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
-    const { prefixCls = "xy-date-range-picker-panel", className, style, value, separator = " - ", defaultValue, placeholder = "请选择日期范围", inputRef, onFocus, onBlur, onKeyDown, onChange, onConfirm, disabled, ...rest } = props;
+    const {
+        prefixCls = "xy-date-range-picker-panel",
+        className,
+        style,
+        value,
+        separator = " - ",
+        defaultValue,
+        placeholder = "请选择日期范围",
+        inputRef,
+        onFocus,
+        onBlur,
+        onKeyDown,
+        onChange,
+        onConfirm,
+        disabled,
+        ...rest
+    } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
+    const withProps = DefineDefaultValue(props, "which", "defaultWhich");
     const [inputValue, setInputValue] = useState<string>(isDateRange(valueProps, props.showTime, separator) ? valueProps : "");
     // 记录最后一次输入正确的时间字符串
     const lastRef = useRef(inputValue);
     const lastPickerDate = useRef<Date>(null);
     const dateRange = isDateRange(inputValue, props.showTime, separator) || !inputValue ? inputValue : lastRef.current;
     const [selectRange, setSelectRange] = useState<[Date, Date]>(getSelectRange());
-    const which = props.which ? props.which : selectRange[0] ? selectRange[0] : new Date();
+    const which = withProps ? withProps : selectRange[0] ? selectRange[0] : new Date();
     const [startWhich, setStartWhich] = useState<Date>(which);
     const [endWhich, setEndWhich] = useState<Date>(selectRange[1] ? selectRange[1] : incrementMonth(startWhich));
     const [selectionMode, setSelectionMode] = useState<SelectionMode>(SelectionMode.Day);
@@ -24,7 +41,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const classString = classNames(prefixCls, className, {
         "hide-start-arrow": formatDate(incrementMonth(startWhich), YearMonth) >= formatDate(endWhich, YearMonth),
         "hide-end-arrow": formatDate(decreaseMonth(endWhich), YearMonth) <= formatDate(startWhich, YearMonth),
-        "show-time": props.showTime
+        "show-time": props.showTime,
     });
     const selected = selectRange[0] !== null && selectRange[1] !== null;
     const startTime = useRef<string>(selectRange[0] !== null ? formatDate(selectRange[0], "HH:mm:ss") : null);
@@ -219,7 +236,16 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     return (
         <div className={classString} style={style}>
             <div className={`${prefixCls}-input-wrap`}>
-                <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
+                <input
+                    type="text"
+                    ref={inputRef}
+                    value={inputValue}
+                    placeholder={placeholder}
+                    onFocus={onFocus}
+                    onBlur={blurHandle}
+                    onKeyDown={handleKeyDown}
+                    onChange={changeHandle}
+                />
             </div>
             <div>
                 <div className={`${prefixCls}__inner`}>

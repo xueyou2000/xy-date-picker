@@ -5,7 +5,7 @@ import "./index.scss";
 export default function() {
     return (
         <div className="date-picker-demo">
-            <DateRangePicker />
+            <DateRangePicker defaultWhich={new Date(2019, 4, 1)} />
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { MonthPicker } from "../src";
 import { DatePickerLocal } from "../src/Locale";
 import { formatDate } from "utils-dom";

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { DatePickerPanel, SelectionMode } from "../src";
 import { formatDate } from "utils-dom";
 import { YearMonth, YearMonthDay } from "../src/CalendarPicker";
@@ -54,23 +54,24 @@ describe("DatePickerPanel", () => {
         const shortcuts = [
             {
                 text: "今天",
-                date: now
+                date: now,
             },
             {
                 text: "明天",
-                date: tomorrow
+                date: tomorrow,
             },
             {
                 text: "一周前",
-                date: oneWeekAgo
-            }
+                date: oneWeekAgo,
+            },
         ];
 
         const wrapper = render(<DatePickerPanel shortcuts={shortcuts} onChange={fn} />);
         const shortcutsBtn = wrapper.container.querySelectorAll(".xy-date-picker-panel-shortcuts-btn");
         expect([].map.call(shortcutsBtn, (btn: HTMLElement) => btn.textContent)).toEqual(["今天", "明天", "一周前"]);
 
-        fireEvent.click(wrapper.getByText("今天"));
+        const buttons = wrapper.container.querySelectorAll(".xy-date-picker-panel-shortcuts-sidebar button");
+        fireEvent.click(buttons[0]);
         expect(fn.mock.calls.length).toBe(1);
         expect(fn.mock.calls[0][0]).toBe(formatDate(now, YearMonthDay));
 

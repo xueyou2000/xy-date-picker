@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { YearPicker } from "../src";
 import { formatDate } from "utils-dom";
 
@@ -7,7 +7,20 @@ describe("YearPicker", () => {
     test("render", () => {
         const wrapper = render(<YearPicker which={new Date(2019, 5, 1)} />);
         const years = wrapper.container.querySelectorAll(".xy-year-picker-cell > .xy-year-picker-cell-inner");
-        expect([].map.call(years, (year: HTMLElement) => year.innerHTML)).toEqual(["2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]);
+        expect([].map.call(years, (year: HTMLElement) => year.innerHTML)).toEqual([
+            "2009",
+            "2010",
+            "2011",
+            "2012",
+            "2013",
+            "2014",
+            "2015",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+        ]);
 
         expect(wrapper.getByText("2009").parentElement.classList.contains("not-now-century")).toBeTruthy();
         expect(wrapper.getByText("2020").parentElement.classList.contains("not-now-century")).toBeTruthy();

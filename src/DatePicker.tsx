@@ -14,7 +14,19 @@ const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
 export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.MutableRefObject<any>) => {
-    const { prefixCls = "xy-date-picker", className, style, onVisibleChange, renderTimePickerPanel = DatePickerPanel, onChange, disabled, onBlur, onConfirm, placeholder = "请选择日期", ...rest } = props;
+    const {
+        prefixCls = "xy-date-picker",
+        className,
+        style,
+        onVisibleChange,
+        renderTimePickerPanel = DatePickerPanel,
+        onChange,
+        disabled,
+        onBlur,
+        onConfirm,
+        placeholder = "请选择日期",
+        ...rest
+    } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
     const inputRef = useRef(null);
@@ -64,7 +76,7 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
             }
             popup.style.display = null;
         },
-        [inputRef.current]
+        [inputRef.current],
     );
 
     function renderPopup() {
@@ -76,13 +88,24 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
             inputRef,
             value: inputValue,
             onChange: changeValue,
-            onConfirm: hide
+            onConfirm: hide,
         });
         // return <DatePickerPanel {...rest} disabled={disabled} placeholder={placeholder} onBlur={onBlur} inputRef={inputRef} value={inputValue} onChange={changeValue} onConfirm={hide} />;
     }
 
     return (
-        <Trigger prefixCls={prefixCls} className="a" onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
+        <Trigger
+            prefixCls={prefixCls}
+            className="a"
+            onAlign={focus}
+            action={ACTION}
+            visible={visible}
+            onChange={changeVisible}
+            offsetSize={0}
+            popupAlign={POPUPALIGN}
+            placement="bottomLeft"
+            popup={renderPopup()}
+        >
             <Input
                 ref={ref}
                 className={className}

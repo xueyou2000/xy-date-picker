@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { DatePickerCombobox, SelectionMode } from "../src";
 import { formatDate } from "utils-dom";
 import { YearMonth } from "../src/CalendarPicker";
@@ -10,7 +10,15 @@ describe("DatePickerCombobox", () => {
         const onMonthPicker = jest.fn();
         const onDayPicker = jest.fn();
         const fn = jest.fn();
-        const wrapper = render(<DatePickerCombobox onSelectionModeChange={fn} defaultWhich={new Date(2019, 5, 1)} onYearPicker={onYearPicker} onMonthPicker={onMonthPicker} onDayPicker={onDayPicker} />);
+        const wrapper = render(
+            <DatePickerCombobox
+                onSelectionModeChange={fn}
+                defaultWhich={new Date(2019, 5, 1)}
+                onYearPicker={onYearPicker}
+                onMonthPicker={onMonthPicker}
+                onDayPicker={onDayPicker}
+            />,
+        );
         const title = wrapper.container.querySelector(".xy-date-picker-combobox-title");
         expect(title.textContent).toBe("2019年6月");
 

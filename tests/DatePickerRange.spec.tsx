@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 import { DateRangePickerPanel, SelectionMode } from "../src";
 import { formatDate } from "utils-dom";
 import { YearMonth, YearMonthDay } from "../src/CalendarPicker";
@@ -37,7 +37,7 @@ describe("DateRangePickerPanel", () => {
         expect(fn.mock.calls[1][0]).toBe("2019-05-13 - 2019-05-25");
     });
 
-    test("picker date", () => {
+    test("range picker date", () => {
         const fn = jest.fn();
         const wrapper = render(<DateRangePickerPanel placeholder="请输入日期范围" defaultWhich={new Date(2019, 4, 1)} onChange={fn} />);
 
