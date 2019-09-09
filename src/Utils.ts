@@ -1,4 +1,4 @@
-import { daysInMonth, setDate, setYear } from "utils-dom";
+import { daysInMonth, setDate, setYear, formatDate } from "utils-dom";
 
 /**
  * 获取当前年份临近的年数组
@@ -34,4 +34,17 @@ export function getDates(date: Date) {
         dates.push(setDate(date, day));
     }
     return dates;
+}
+
+/**
+ * 获取值
+ * @param value
+ * @param showTime
+ */
+export function getValue(value: string | Date, showTime: boolean) {
+    if (value instanceof Date) {
+        return formatDate(value, showTime ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd");
+    } else {
+        return value;
+    }
 }

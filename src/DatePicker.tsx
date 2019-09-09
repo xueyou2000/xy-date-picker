@@ -9,6 +9,7 @@ import "xy-input/assets/index.css";
 import Trigger from "xy-trigger";
 import DatePickerPanel from "./DatePickerPanel";
 import { DatePickerProps } from "./interface";
+import { getValue } from "./Utils";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
@@ -28,7 +29,7 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
         ...rest
     } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
-    const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue");
+    const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue", "", (val) => getValue(val, props.showTime));
     const inputRef = useRef(null);
     const cleanBtnRef = useRef(null);
 

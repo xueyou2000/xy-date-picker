@@ -150,7 +150,7 @@ export interface DatePickerPanelProps extends DatePickerComboboxNoChange, InputG
      * 默认日期
      * @description 年月日时分秒字符串
      */
-    defaultValue?: string;
+    defaultValue?: string | Date;
     /**
      * onChange事件
      */

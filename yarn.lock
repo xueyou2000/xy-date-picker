@@ -6978,7 +6978,7 @@ querystringify@^2.1.1:
   resolved "https://registry.npm.taobao.org/querystringify/download/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha1-YOWl/WSn+L+k0qsu1v30yFutFU4=
 
-quick-react-scripts@1.2.3:
+quick-react-scripts@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npm.taobao.org/quick-react-scripts/download/quick-react-scripts-1.2.3.tgz#5c11c2da50b9b6c9f7a682a4f81a6e0f6ff22a71"
   integrity sha1-XBHC2lC5tsn3poKk+BpuD2/yKnE=
@@ -8678,7 +8678,7 @@ utils-dom@0.0.65:
   resolved "https://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.65.tgz#4fcd6e289f9eae65b1d0598388e1b2c2f604b8ae"
   integrity sha1-T81uKJ+ermWx0FmDiOGywvYEuK4=
 
-utils-dom@0.0.70, utils-dom@^0.0.70:
+utils-dom@^0.0.70:
   version "0.0.70"
   resolved "https://registry.npm.taobao.org/utils-dom/download/utils-dom-0.0.70.tgz#0c2a8a9d3224baa9f008eccecc35645ed431ffd5"
   integrity sha1-DCqKnTIkuqnwCOzOzDVkXtQx/9U=
@@ -8697,6 +8697,11 @@ utils-hooks@^0.0.65:
   version "0.0.65"
   resolved "https://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.65.tgz#abb9e24413ebee7ef3e563b1967e890ba4e077dc"
   integrity sha1-q7niRBPr7n7z5WOxln6JC6Tgd9w=
+
+utils-hooks@^0.0.72:
+  version "0.0.72"
+  resolved "https://registry.npm.taobao.org/utils-hooks/download/utils-hooks-0.0.72.tgz#00349dd7f03f79340e50455e7c2fe63ce74bf6f9"
+  integrity sha1-ADSd1/A/eTQOUEVefC/mPOdL9vk=
 
 utils-merge@1.0.1:
   version "1.0.1"
@@ -9125,7 +9130,7 @@ xy-grid@^0.0.6:
     react-dom "^16.8.2"
     utils-hooks "0.0.69"
 
-xy-input@0.0.92, xy-input@^0.0.92:
+xy-input@^0.0.92:
   version "0.0.92"
   resolved "https://registry.npm.taobao.org/xy-input/download/xy-input-0.0.92.tgz#dd96d92f5a481b75b1b3a0d35589d9d96991ba2b"
   integrity sha1-3ZbZL1pIG3Wxs6DTVYnZ2WmRuis=
@@ -9138,10 +9143,10 @@ xy-input@0.0.92, xy-input@^0.0.92:
     react-dom "^16.9.0"
     utils-hooks "^0.0.71"
 
-xy-manual-tools@0.1.66:
-  version "0.1.66"
-  resolved "https://registry.npm.taobao.org/xy-manual-tools/download/xy-manual-tools-0.1.66.tgz#7eba164e3d59bbb845b8ee54abe951a63ce3aabf"
-  integrity sha1-froWTj1Zu7hFuO5Uq+lRpjzjqr8=
+xy-manual-tools@^0.1.66:
+  version "0.1.67"
+  resolved "https://registry.npm.taobao.org/xy-manual-tools/download/xy-manual-tools-0.1.67.tgz#a000e0e966ad122d7012b85f047fbe9c435a698e"
+  integrity sha1-oADg6WatEi1wErhfBH++nENaaY4=
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.17"
     "@fortawesome/free-solid-svg-icons" "^5.8.1"
@@ -9229,17 +9234,6 @@ xy-time-picker@^0.0.63:
     xy-input "^0.0.92"
     xy-trigger "^0.0.94"
 
-xy-trigger@0.0.95:
-  version "0.0.95"
-  resolved "https://registry.npm.taobao.org/xy-trigger/download/xy-trigger-0.0.95.tgz#9653319c23953728168930208177ea9c792fca4a"
-  integrity sha1-llMxnCOVNygWiTAggXfqnHkvyko=
-  dependencies:
-    classnames "^2.2.6"
-    react "^16.8.2"
-    react-dom "^16.8.2"
-    utils-dom "^0.0.70"
-    utils-hooks "^0.0.71"
-
 xy-trigger@^0.0.94:
   version "0.0.94"
   resolved "https://registry.npm.taobao.org/xy-trigger/download/xy-trigger-0.0.94.tgz#e4f8adcc5b8f727433fcff8839a52986ec7ecf23"
@@ -9250,6 +9244,17 @@ xy-trigger@^0.0.94:
     react-dom "^16.8.2"
     utils-dom "0.0.65"
     utils-hooks "0.0.71"
+
+xy-trigger@^0.0.95:
+  version "0.0.95"
+  resolved "https://registry.npm.taobao.org/xy-trigger/download/xy-trigger-0.0.95.tgz#9653319c23953728168930208177ea9c792fca4a"
+  integrity sha1-llMxnCOVNygWiTAggXfqnHkvyko=
+  dependencies:
+    classnames "^2.2.6"
+    react "^16.8.2"
+    react-dom "^16.8.2"
+    utils-dom "^0.0.70"
+    utils-hooks "^0.0.71"
 
 y18n@^3.2.1:
   version "3.2.1"
