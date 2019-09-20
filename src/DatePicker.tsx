@@ -32,6 +32,8 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue", "", (val) => getValue(val, props.showTime));
     const inputRef = useRef(null);
     const cleanBtnRef = useRef(null);
+    const disabledRef = useRef(disabled);
+    disabledRef.current = disabled;
 
     const changeValue = useCallback((val: string) => {
         if (!isControll) {
@@ -45,7 +47,7 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
     const changeVisible = useCallback((show: boolean, event?: MouseEvent) => {
         const cleanBtn = cleanBtnRef.current as HTMLElement;
         const target = event && (event.target as HTMLElement);
-        if (cleanBtn && target && (cleanBtn === target || cleanBtn.contains(target))) {
+        if (disabledRef.current === true || (cleanBtn && target && (cleanBtn === target || cleanBtn.contains(target)))) {
             return;
         }
 
