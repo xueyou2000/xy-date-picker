@@ -1,6 +1,6 @@
 {
     "name": "xy-date-picker",
-    "version": "0.0.34",
+    "version": "0.1.0",
     "description": "基于 React Hooks 的日期选择器组件",
     "types": "es/index.d.ts",
     "main": "es/index.js",
@@ -42,21 +42,21 @@
         "@types/node": "12.7.4",
         "@types/react": "16.9.2",
         "@types/react-dom": "16.9.0",
-        "quick-react-scripts": "^1.2.3",
-        "xy-manual-tools": "^0.1.66"
+        "quick-react-scripts": "^1.3.2",
+        "xy-manual-tools": "^0.3.0"
     },
     "dependencies": {
         "@fortawesome/free-regular-svg-icons": "^5.10.2",
         "@fortawesome/free-solid-svg-icons": "^5.10.2",
         "@fortawesome/react-fontawesome": "^0.1.4",
         "classnames": "^2.2.6",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
         "utils-dom": "^0.0.70",
         "utils-hooks": "^0.0.72",
-        "xy-input": "^0.0.92",
-        "xy-time-picker": "^0.0.63",
-        "xy-trigger": "^0.0.95"
+        "xy-input": "^0.1.0",
+        "xy-time-picker": "^0.1.0",
+        "xy-trigger": "^0.1.0"
     },
     "repository": {
         "type": "git",
