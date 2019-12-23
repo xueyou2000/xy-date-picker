@@ -9,12 +9,13 @@ import { DatePickerComboboxProps } from "./interface";
 import MonthPicker from "./MonthPicker";
 import { nearYears } from "./Utils";
 import YearPicker from "./YearPicker";
+import { getLocal } from "./local";
 
 export enum SelectionMode {
     Year,
     Month,
     Day,
-    Time
+    Time,
 }
 
 export function DatePickerCombobox(props: DatePickerComboboxProps) {
@@ -162,10 +163,12 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
                 title = (
                     <React.Fragment>
                         <a className={`${prefixCls}-title__select`} onClick={switchYearMode}>
-                            {which.getFullYear()}年
+                            {which.getFullYear()}
+                            {getLocal().DatePicker.year}
                         </a>
                         <a className={`${prefixCls}-title__select`} onClick={switchMonthMode}>
-                            {which.getMonth() + 1}月
+                            {which.getMonth() + 1}
+                            {getLocal().DatePicker.month}
                         </a>
                     </React.Fragment>
                 );
@@ -182,7 +185,7 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
                 title = `${years[0]} ~ ${years[years.length - 1]}`;
                 break;
             case SelectionMode.Time:
-                title = formatDate(value || which, "yyyy年 MM月 dd日");
+                title = formatDate(value || which, getLocal().DatePicker.dateFormate);
                 break;
         }
 
@@ -215,20 +218,20 @@ export function DatePickerCombobox(props: DatePickerComboboxProps) {
             return (
                 <React.Fragment>
                     <a className="today-btn" onClick={() => dayPicker(new Date(), true)}>
-                        今天
+                        {getLocal().DatePicker.today}
                     </a>
                     <a className="time-picker-btn" onClick={toggleMode}>
-                        {selectionMode === SelectionMode.Time ? "选择日期" : "选择时间"}
+                        {selectionMode === SelectionMode.Time ? getLocal().DatePicker.datePlaceholder : getLocal().DatePicker.timePlaceholder}
                     </a>
                     <a className={`${prefixCls}-ok-btn`} onClick={confirmHandle}>
-                        确定
+                        {getLocal().DatePicker.confirm}
                     </a>
                 </React.Fragment>
             );
         } else {
             return (
                 <a className="today-btn" onClick={() => dayPicker(new Date())}>
-                    今天
+                    {getLocal().DatePicker.today}
                 </a>
             );
         }

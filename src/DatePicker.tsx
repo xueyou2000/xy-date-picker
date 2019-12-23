@@ -10,24 +10,13 @@ import Trigger from "xy-trigger";
 import DatePickerPanel from "./DatePickerPanel";
 import { DatePickerProps } from "./interface";
 import { getValue } from "./Utils";
+import { getLocal } from "./local";
 
 const ACTION: TriggerAction[] = ["click"];
 const POPUPALIGN = { overflow: { adjust: false, flip: true }, targetOffset: [0, "-100%"] };
 
 export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.MutableRefObject<any>) => {
-    const {
-        prefixCls = "xy-date-picker",
-        className,
-        style,
-        onVisibleChange,
-        renderTimePickerPanel = DatePickerPanel,
-        onChange,
-        disabled,
-        onBlur,
-        onConfirm,
-        placeholder = "请选择日期",
-        ...rest
-    } = props;
+    const { prefixCls = "xy-date-picker", className, style, onVisibleChange, renderTimePickerPanel = DatePickerPanel, onChange, disabled, onBlur, onConfirm, placeholder = getLocal().DatePicker.placeholder, ...rest } = props;
     const [visible, setVisible, isVisibleControll] = useControll(props, "visible", "defaultVisible", false);
     const [inputValue, setInputValue, isControll] = useControll(props, "value", "defaultValue", "", (val) => getValue(val, props.showTime));
     const inputRef = useRef(null);
@@ -97,18 +86,7 @@ export const DatePicker = React.forwardRef((props: DatePickerProps, ref: React.M
     }
 
     return (
-        <Trigger
-            prefixCls={prefixCls}
-            className="a"
-            onAlign={focus}
-            action={ACTION}
-            visible={visible}
-            onChange={changeVisible}
-            offsetSize={0}
-            popupAlign={POPUPALIGN}
-            placement="bottomLeft"
-            popup={renderPopup()}
-        >
+        <Trigger prefixCls={prefixCls} className="a" onAlign={focus} action={ACTION} visible={visible} onChange={changeVisible} offsetSize={0} popupAlign={POPUPALIGN} placement="bottomLeft" popup={renderPopup()}>
             <Input
                 ref={ref}
                 className={className}

@@ -2,9 +2,9 @@ import classNames from "classnames";
 import React from "react";
 import { setMonth, formatDate } from "utils-dom";
 import { YearPickerProps } from "./interface";
-import { DatePickerLocal } from "./Locale";
 import { ColNum, RowsNum } from "./YearPicker";
 import { YearMonth } from "./CalendarPicker";
+import { getLocal } from "./local";
 
 export function MonthPicker(props: YearPickerProps) {
     const { prefixCls = "xy-month-picker", className, value, onPicker, style, min, max } = props;
@@ -52,7 +52,7 @@ export function MonthPicker(props: YearPickerProps) {
                         }
                     }}
                 >
-                    {DatePickerLocal.months[month]}
+                    {getLocal().DatePicker.months[month]}
                 </a>
             </td>
         );

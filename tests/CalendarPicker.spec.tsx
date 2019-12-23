@@ -2,22 +2,17 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { CalendarPicker } from "../src";
 import { formatDate } from "utils-dom";
-import { DatePickerLocal } from "../src/Locale";
+import Local from "../src/local/zh";
 
 describe("CalendarPicker", () => {
     test("render", () => {
         const wrapper = render(<CalendarPicker which={new Date(2019, 4, 1)} />);
 
         const ths = wrapper.container.querySelectorAll(".xy-calendar-picker  th");
-        expect([].map.call(ths, (th: HTMLElement) => th.innerHTML)).toEqual(DatePickerLocal.weeks);
+        expect([].map.call(ths, (th: HTMLElement) => th.innerHTML)).toEqual(Local.DatePicker.weeks);
 
         const days = wrapper.container.querySelectorAll(".xy-calendar-picker-cell > .xy-calendar-picker-cell-inner");
-        expect([].map.call(days, (year: HTMLElement) => year.innerHTML)).toEqual([
-            "29",
-            "30",
-            ...new Array(31).fill(0).map((_, i) => `${i + 1}`),
-            ...new Array(9).fill(0).map((_, i) => `${i + 1}`),
-        ]);
+        expect([].map.call(days, (year: HTMLElement) => year.innerHTML)).toEqual(["29", "30", ...new Array(31).fill(0).map((_, i) => `${i + 1}`), ...new Array(9).fill(0).map((_, i) => `${i + 1}`)]);
 
         expect(wrapper.getByTitle("2019-04-30").classList.contains("not-current-month")).toBeTruthy();
         expect(wrapper.getByTitle("2019-06-01").classList.contains("not-current-month")).toBeTruthy();

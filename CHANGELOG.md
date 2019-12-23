@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.2.0 (Mon Dec 23 2019)
+
+-   增加`window.GlobalComponentLocal`用于国际化
+
 ## 0.1.0 (Tue Nov 19 2019)
 
 -   修复`react`与`react-dom`版本不一致导致的问题

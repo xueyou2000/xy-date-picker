@@ -2,8 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import { decreaseMonth, formatDate, incrementMonth, setYearMonthDay } from "utils-dom";
 import { CalendarPickerProps } from "./interface";
-import { DatePickerLocal } from "./Locale";
 import { getDates } from "./Utils";
+import { getLocal } from "./local";
 
 // 行数
 const RowsNum: number = 6;
@@ -83,7 +83,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
             selected: selected && currentMonth,
             today: dateText === formatDate(new Date(), YearMonthDay),
             "in-range": !selected && inRange && currentMonth,
-            "not-current-month": !currentMonth
+            "not-current-month": !currentMonth,
         });
 
         return (
@@ -112,7 +112,7 @@ export function CalendarPicker(props: CalendarPickerProps) {
             <table>
                 <thead>
                     <tr>
-                        {DatePickerLocal.weeks.map((week) => (
+                        {getLocal().DatePicker.weeks.map((week) => (
                             <th key={week}>{week}</th>
                         ))}
                     </tr>

@@ -5,9 +5,10 @@ import { YearMonth } from "./CalendarPicker";
 import { formatDate, isYearMonth, yearMonthParse } from "utils-dom";
 import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
 import { YearMonthPickerPanelProps } from "./interface";
+import { getLocal } from "./local";
 
 export function YearMonthPickerPanel(props?: YearMonthPickerPanelProps) {
-    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = "请选择年月", inputRef, onFocus, onBlur, onKeyDown, onConfirm, onChange, disabled, ...rest } = props;
+    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = getLocal().DatePicker.yearPlaceholder, inputRef, onFocus, onBlur, onKeyDown, onConfirm, onChange, disabled, ...rest } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState<string>(isYearMonth(valueProps) ? valueProps : "");

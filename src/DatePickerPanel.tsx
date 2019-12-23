@@ -5,24 +5,10 @@ import { YearMonthDay } from "./CalendarPicker";
 import { dateParse, formatDate, isDate } from "utils-dom";
 import DatePickerCombobox from "./DatePickerCombobox";
 import { DatePickerPanelProps } from "./interface";
+import { getLocal } from "./local";
 
 export function DatePickerPanel(props: DatePickerPanelProps) {
-    const {
-        prefixCls = "xy-date-picker-panel",
-        value,
-        defaultValue,
-        className,
-        style,
-        placeholder = "请选择日期",
-        inputRef,
-        onFocus,
-        onBlur,
-        onKeyDown,
-        onChange,
-        disabled,
-        shortcuts,
-        ...rest
-    } = props;
+    const { prefixCls = "xy-date-picker-panel", value, defaultValue, className, style, placeholder = getLocal().DatePicker.placeholder, inputRef, onFocus, onBlur, onKeyDown, onChange, disabled, shortcuts, ...rest } = props;
     const isControll = "value" in props;
     const valueProps = DefineDefaultValue(props, "value", "defaultValue");
     const [inputValue, setInputValue] = useState<string>(isDate(valueProps, props.showTime) ? valueProps : "");
@@ -121,16 +107,7 @@ export function DatePickerPanel(props: DatePickerPanelProps) {
         <div className={classNames(prefixCls, className, { [`${prefixCls}-show-shortcut`]: !!shortcuts })} style={style}>
             <div className={`${prefixCls}-content`}>
                 <div className={`${prefixCls}-input-wrap`}>
-                    <input
-                        type="text"
-                        ref={inputRef}
-                        value={inputValue}
-                        placeholder={placeholder}
-                        onFocus={onFocus}
-                        onBlur={blurHandle}
-                        onKeyDown={handleKeyDown}
-                        onChange={changeHandle}
-                    />
+                    <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
                 </div>
                 <DatePickerCombobox {...rest} which={which} onWhichChange={setwhich} value={dateParse(date)} onChange={datePickerHandle} />
             </div>

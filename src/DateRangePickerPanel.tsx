@@ -5,6 +5,7 @@ import { YearMonth, YearMonthDay } from "./CalendarPicker";
 import { dateRangeParse, decreaseMonth, formatDate, incrementMonth, isDateRange, timeParse } from "utils-dom";
 import DatePickerCombobox, { SelectionMode } from "./DatePickerCombobox";
 import { DateRangePickerPanelProps } from "./interface";
+import { getLocal } from "./local";
 
 export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     const {
@@ -14,7 +15,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
         value,
         separator = " - ",
         defaultValue,
-        placeholder = "请选择日期范围",
+        placeholder = getLocal().DatePicker.dateRangePlaceholder,
         inputRef,
         onFocus,
         onBlur,
@@ -221,10 +222,10 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
             return (
                 <React.Fragment>
                     <a className={classNames("time-picker-btn", { disabled: !selected || lastPickerDate.current !== null })} onClick={toggleMode}>
-                        {selectionMode === SelectionMode.Time ? "选择日期" : "选择时间"}
+                        {selectionMode === SelectionMode.Time ? getLocal().DatePicker.datePlaceholder : getLocal().DatePicker.timePlaceholder}
                     </a>
                     <a className={`${prefixCls}-ok-btn`} onClick={confirmHandle}>
-                        确定
+                        {getLocal().DatePicker.confirm}
                     </a>
                 </React.Fragment>
             );
@@ -236,16 +237,7 @@ export function DateRangePickerPanel(props: DateRangePickerPanelProps) {
     return (
         <div className={classString} style={style}>
             <div className={`${prefixCls}-input-wrap`}>
-                <input
-                    type="text"
-                    ref={inputRef}
-                    value={inputValue}
-                    placeholder={placeholder}
-                    onFocus={onFocus}
-                    onBlur={blurHandle}
-                    onKeyDown={handleKeyDown}
-                    onChange={changeHandle}
-                />
+                <input type="text" ref={inputRef} value={inputValue} placeholder={placeholder} onFocus={onFocus} onBlur={blurHandle} onKeyDown={handleKeyDown} onChange={changeHandle} />
             </div>
             <div>
                 <div className={`${prefixCls}__inner`}>

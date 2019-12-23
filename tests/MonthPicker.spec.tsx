@@ -1,14 +1,14 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { MonthPicker } from "../src";
-import { DatePickerLocal } from "../src/Locale";
+import Local from "../src/local/zh";
 import { formatDate } from "utils-dom";
 
 describe("MonthPicker", () => {
     test("render", () => {
         const wrapper = render(<MonthPicker which={new Date(2019, 5, 1)} />);
         const months = wrapper.container.querySelectorAll(".xy-month-picker-cell > .xy-month-picker-cell-inner");
-        expect([].map.call(months, (year: HTMLElement) => year.innerHTML)).toEqual(DatePickerLocal.months);
+        expect([].map.call(months, (year: HTMLElement) => year.innerHTML)).toEqual(Local.DatePicker.months);
     });
 
     test("selected by value", () => {
